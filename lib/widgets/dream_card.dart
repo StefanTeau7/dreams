@@ -27,10 +27,10 @@ class DreamCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DreamCard> createState() => _JoinableCardState();
+  State<DreamCard> createState() => _dreamCardState();
 }
 
-class _JoinableCardState extends State<DreamCard> {
+class _dreamCardState extends State<DreamCard> {
   bool isActive = false;
 
   @override

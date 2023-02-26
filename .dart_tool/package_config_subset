@@ -50,6 +50,10 @@ amplify_secure_storage_dart
 2.18
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_secure_storage_dart-0.2.0/
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_secure_storage_dart-0.2.0/lib/
+archive
+2.12
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/archive-3.3.6/
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/archive-3.3.6/lib/
 async
 2.18
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/async-2.10.0/
@@ -74,6 +78,10 @@ built_value
 2.12
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/built_value-8.4.3/
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/built_value-8.4.3/lib/
+change_notifier_builder
+2.12
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/change_notifier_builder-1.1.2/
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/change_notifier_builder-1.1.2/lib/
 characters
 2.12
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/characters-1.2.1/
@@ -170,6 +178,10 @@ logging
 2.18
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/logging-1.1.1/
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/logging-1.1.1/lib/
+lottie
+2.18
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/lottie-2.2.0/
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/lottie-2.2.0/lib/
 matcher
 2.18
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/matcher-0.12.13/
@@ -242,6 +254,10 @@ plugin_platform_interface
 2.17
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4/
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4/lib/
+pointycastle
+2.12
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/pointycastle-3.6.2/
+file:///Users/stefanteau/.pub-cache/hosted/pub.dev/pointycastle-3.6.2/lib/
 process
 2.14
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/process-4.2.4/
@@ -332,8 +348,8 @@ file:///Users/stefanteau/.pub-cache/hosted/pub.dev/xml-6.2.2/
 file:///Users/stefanteau/.pub-cache/hosted/pub.dev/xml-6.2.2/lib/
 dream_catcher
 2.18
-file:///Users/stefanteau/Dev/dream_catcher/
-file:///Users/stefanteau/Dev/dream_catcher/lib/
+file:///Users/stefanteau/Dev/dream_catcher/dreams/
+file:///Users/stefanteau/Dev/dream_catcher/dreams/lib/
 sky_engine
 2.12
 file:///Users/stefanteau/desktop/Dev/flutter/bin/cache/pkg/sky_engine/

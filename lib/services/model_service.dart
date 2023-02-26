@@ -3,7 +3,7 @@ import 'package:dream_catcher/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class ModelService with ChangeNotifier {
-  String currentModel = "curie";
+  String currentModel = "da-vinci-003";
   String get getCurrentModel {
     return currentModel;
   }
