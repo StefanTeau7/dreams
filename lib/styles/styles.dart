@@ -6,7 +6,6 @@ class Styles {
   static const Color lightTone = Color(0xFFF8F5EA);
   static const Color lightMid = Color(0xFFE4E1D5);
   static const Color textInactive = Color(0xFFC9C5B9);
-  static const Color textDark = Color(0xFF2E2B21);
   static const Color pink = Color(0xFFFFE8E3);
   static const Color disabledButton = Color(0xFFE0DFDE);
   static const Color yellow = Color(0xFFFFE55F);
@@ -29,8 +28,8 @@ class Styles {
   static const Color darkShadowColor = Color.fromRGBO(0, 0, 0, 0.25);
   static const Color shadowColor = Color.fromRGBO(119, 91, 71, 0.2);
 
-  static Color backgroundModalColor = textDark.withOpacity(0.1);
-  static Color backgroundModalDark = textDark.withOpacity(0.25);
+  static Color backgroundModalColor = white.withOpacity(0.1);
+  static Color backgroundModalDark = white.withOpacity(0.25);
 
   static const _headlineFont = "Tobias";
   static const _copyFont = "Haffer";
@@ -73,28 +72,28 @@ class Styles {
     fontFamily: _headlineFont,
     fontSize: _headlineExtraLargeFontSize,
     fontWeight: FontWeight.w300,
-    color: textDark,
+    color: white,
   );
 
   static const headlineLarge = TextStyle(
     fontFamily: _headlineFont,
     fontSize: _headlineLargeFontSize,
     fontWeight: FontWeight.w400,
-    color: textDark,
+    color: white,
   );
 
   static const headlineMedium = TextStyle(
     fontFamily: _headlineFont,
     fontSize: _headlineMediumFontSize,
     fontWeight: FontWeight.w400,
-    color: textDark,
+    color: white,
   );
 
   static const headlineSmall = TextStyle(
     fontFamily: _headlineFont,
     fontSize: _uiLargeFontSize,
     fontWeight: FontWeight.w400,
-    color: textDark,
+    color: white,
   );
 
   static const copyMediumBold = TextStyle(
@@ -106,28 +105,28 @@ class Styles {
   static const copyFont = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
     height: 1.3,
   );
   static const copyBold = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
     height: 1.3,
   );
   static const copyItalic = TextStyle(
       fontFamily: _copyFont,
       fontSize: _uiLargeFontSize,
-      color: textDark,
+      color: white,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic);
 
   static const copyBoldItalic = TextStyle(
       fontFamily: _copyFont,
       fontSize: _uiLargeFontSize,
-      color: textDark,
+      color: white,
       fontWeight: FontWeight.w600,
       fontStyle: FontStyle.italic);
 
@@ -141,42 +140,42 @@ class Styles {
   static const uiExtraLarge = TextStyle(
     fontFamily: _copyFont,
     fontSize: _groupHeaderLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
   );
 
   static const uiBoldExtraLarge = TextStyle(
     fontFamily: _copyFont,
     fontSize: _groupHeaderLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w700,
   );
 
   static const uiBoldLarge = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w700,
   );
 
   static const uiSemiBoldLarge = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
   );
 
   static const uiBoldMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w700,
   );
 
   static const uiBoldSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiSmallFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w700,
     height: 1.2,
   );
@@ -191,40 +190,40 @@ class Styles {
   static const uiSemiBoldMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
   );
   static const uiSemiBoldSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiSmallFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
   );
 
   static const uiSemiBoldExtraSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiExtraSmallFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
   );
   static const uiSemiBoldXXS = TextStyle(
     fontFamily: _copyFont,
     fontSize: _xxsSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w600,
   );
 
   static const uiLarge = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiLargeFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
   );
 
   static const uiMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
     height: 1.3,
   );
@@ -232,7 +231,7 @@ class Styles {
   static const uiMediumItalic = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.italic,
     height: 1.3,
@@ -257,7 +256,7 @@ class Styles {
   static const uiSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiSmallFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
     height: 1.2,
   );
@@ -273,7 +272,7 @@ class Styles {
   static const uiExtraSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiExtraSmallFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w400,
   );
 
@@ -287,7 +286,7 @@ class Styles {
   static const sectionHeader = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textDark,
+    color: white,
     fontWeight: FontWeight.w500,
   );
 
@@ -375,7 +374,7 @@ class Styles {
       BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20));
 
   static BoxShadow shadowSofty = BoxShadow(
-    color: Styles.textDark.withOpacity(0.18),
+    color: Styles.white.withOpacity(0.18),
     spreadRadius: 0,
     blurRadius: 29,
     offset: const Offset(0, 6), // changes position of shadow

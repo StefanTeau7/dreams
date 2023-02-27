@@ -1,6 +1,5 @@
-import 'package:dream_catcher/screens/app/single_dream_screen.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:dream_catcher/screens/app/dream_collection.dart';
+import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,6 +11,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return SingleDreamScreen();
+    return const Material(child: MaterialApp(home: Scaffold(body: DreamCollection())));
   }
 }

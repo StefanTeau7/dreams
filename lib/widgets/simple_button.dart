@@ -173,15 +173,15 @@ class ButtonVariant {
   static Map<String, Color> getButtonVariantColors(ButtonVariant variant) {
     switch (variant) {
       case ButtonVariant.YELLOW:
-        return {'buttonColor': Styles.yellow, 'labelColor': Styles.textDark, 'borderColor': Styles.yellow};
+        return {'buttonColor': Styles.yellow, 'labelColor': Styles.white, 'borderColor': Styles.yellow};
       case ButtonVariant.SECONDARY:
-        return {'buttonColor': Styles.textDark, 'labelColor': Styles.white, 'borderColor': Styles.textDark};
+        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.TERTIARY:
-        return {'buttonColor': Styles.lightMid, 'labelColor': Styles.textDark, 'borderColor': Styles.lightMid};
+        return {'buttonColor': Styles.lightMid, 'labelColor': Styles.white, 'borderColor': Styles.lightMid};
       case ButtonVariant.OUTLINED:
-        return {'buttonColor': Colors.transparent, 'labelColor': Styles.textDark, 'borderColor': Styles.white};
+        return {'buttonColor': Colors.transparent, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.PRIMARY_DISABLED:
-        return {'buttonColor': Styles.pink, 'labelColor': Styles.textDark, 'borderColor': Styles.pink};
+        return {'buttonColor': Styles.pink, 'labelColor': Styles.white, 'borderColor': Styles.pink};
       case ButtonVariant.SECONDARY_DISABLED:
         return {'buttonColor': Styles.lightMid, 'labelColor': Styles.white, 'borderColor': Styles.lightMid};
       case ButtonVariant.TERTIARY_DISABLED:

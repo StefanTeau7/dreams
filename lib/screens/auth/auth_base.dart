@@ -57,12 +57,16 @@ class _AuthBaseState extends State<AuthBase> {
           body = AuthSignUp(authController: _authController);
         }
         return Scaffold(
-            body: Container(
-                decoration: BoxDecoration(color: Styles.lightBg, image: image),
-                child: SafeArea(
-                    child: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(constraints: const BoxConstraints(maxWidth: 375.0), child: body)))));
+          body: Container(
+            decoration: BoxDecoration(color: Styles.lightBg, image: image),
+            child: SafeArea(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Container(constraints: const BoxConstraints(maxWidth: 375.0), child: body),
+              ),
+            ),
+          ),
+        );
       }),
     );
   }

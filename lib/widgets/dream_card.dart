@@ -27,10 +27,10 @@ class DreamCard extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<DreamCard> createState() => _dreamCardState();
+  State<DreamCard> createState() => _DreamCardState();
 }
 
-class _dreamCardState extends State<DreamCard> {
+class _DreamCardState extends State<DreamCard> {
   bool isActive = false;
 
   @override
@@ -76,7 +76,7 @@ class _dreamCardState extends State<DreamCard> {
                 width: 3,
                 alignment: Alignment.centerRight,
                 decoration:
-                    const BoxDecoration(color: Styles.textDark, borderRadius: BorderRadius.all(Radius.circular(20))),
+                    const BoxDecoration(color: Styles.white, borderRadius: BorderRadius.all(Radius.circular(20))),
               ),
             ),
           Container(

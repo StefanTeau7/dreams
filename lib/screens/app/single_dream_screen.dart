@@ -6,7 +6,6 @@ import 'package:dream_catcher/widgets/labeled_text_field.dart';
 import 'package:dream_catcher/widgets/simple_button.dart';
 import 'package:dream_catcher/widgets/spaced_column.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class SingleDreamScreen extends StatefulWidget {
@@ -48,6 +47,12 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      InkWell(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Styles.white,
+                          )),
                       // textfield
                       SizedBox(
                           width: 400,
