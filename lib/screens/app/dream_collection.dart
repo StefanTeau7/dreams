@@ -76,6 +76,7 @@ class _DreamCollectionState extends State<DreamCollection> {
             maxCrossAxisExtent: 300, mainAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
         itemBuilder: (context, i) {
           return DreamCard(
+            height: 200,
             color: Styles.wine.withOpacity(0.7),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
@@ -89,7 +90,7 @@ class _DreamCollectionState extends State<DreamCollection> {
                 child: Text(
                   dreams[i],
                   style: Styles.uiMedium,
-                  overflow: TextOverflow.ellipsis,
+                  overflow: TextOverflow.fade,
                 ),
               )
             ]),

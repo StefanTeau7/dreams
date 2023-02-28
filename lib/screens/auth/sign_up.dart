@@ -38,10 +38,21 @@ class AuthSignUp extends StatelessWidget {
             onSubmitted:
                 authController.isSignUpValid ? (_) => authController.asyncButtonController.triggerPressed() : null,
           ),
+          LabeledTextField(
+            label: 'Password',
+            autofocus: true,
+            labelStyle: Styles.uiLightMedium,
+            controller: authController.passwordController,
+            keyboardType: TextInputType.phone, // change this to phone when fully changed over
+            textInputAction: TextInputAction.go,
+            onChanged: (_) => authController.validateSignUp(),
+            onSubmitted:
+                authController.isSignUpValid ? (_) => authController.asyncButtonController.triggerPressed() : null,
+          ),
         ],
         submitButton: AsyncActionButton(
           label: 'Continue',
-          onPressed: authController.isSignUpValid ? () => authController.requestVerificationCode() : null,
+          onPressed: authController.isSignUpValid ? () => authController.signUpUser() : null,
           controller: authController.asyncButtonController,
         ),
       ),
@@ -59,53 +70,4 @@ class AuthSignUp extends StatelessWidget {
       ),
     );
   }
-
-  /// text format and style for terms and agreement
-  // Widget _buildTermsAndAgreements() {
-  //   return RichText(
-  //     text: TextSpan(
-  //       children: <InlineSpan>[
-  //         const TextSpan(text: 'By clicking above, you confirm that you are ', style: Styles.uiSmall),
-  //         const TextSpan(text: 'at least 13 years old, ', style: Styles.uiBoldSmall),
-  //         const TextSpan(text: 'and you agree to abide by the ', style: Styles.uiSmall),
-  //         WidgetSpan(
-  //           child: InkWell(
-  //             onTap: () async => await launchUrl(Uri.parse('https://www.dream.us/terms-of-service')),
-  //             child: Text(
-  //               'Membership Agreement',
-  //               style: Styles.uiBoldSmall.copyWith(decoration: TextDecoration.underline),
-  //             ),
-  //           ),
-  //         ),
-  //         const TextSpan(text: ' and ', style: Styles.uiSmall),
-  //         WidgetSpan(
-  //           child: InkWell(
-  //             onTap: () async => await launchUrl(Uri.parse('https://www.dream.us/privacy-policy')),
-  //             child: Text(
-  //               'Privacy Policy',
-  //               style: Styles.uiBoldSmall.copyWith(decoration: TextDecoration.underline),
-  //             ),
-  //           ),
-  //         ),
-  //         const TextSpan(text: '.', style: Styles.uiSmall),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Widget _buildInviteLinkReminder() {
-  //   return InlineAlert(
-  //       message: RichText(
-  //     textAlign: TextAlign.center,
-  //     text: TextSpan(
-  //       children: <TextSpan>[
-  //         TextSpan(
-  //           text: 'If you have an invitation, go back and click the ',
-  //           style: Styles.uiSmall.copyWith(fontSize: 15.0),
-  //         ),
-  //         TextSpan(text: 'Join button', style: Styles.uiBoldSmall.copyWith(fontSize: 15.0))
-  //       ],
-  //     ),
-  //   ));
-  // }
 }

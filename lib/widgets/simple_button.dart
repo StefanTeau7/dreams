@@ -175,7 +175,7 @@ class ButtonVariant {
       case ButtonVariant.YELLOW:
         return {'buttonColor': Styles.yellow, 'labelColor': Styles.white, 'borderColor': Styles.yellow};
       case ButtonVariant.SECONDARY:
-        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
+        return {'buttonColor': Styles.wine, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.TERTIARY:
         return {'buttonColor': Styles.lightMid, 'labelColor': Styles.white, 'borderColor': Styles.lightMid};
       case ButtonVariant.OUTLINED:

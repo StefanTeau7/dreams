@@ -42,9 +42,20 @@ class AuthController extends ChangeNotifier {
   bool get isSignIn => _isSignIn;
   bool get isVerify => _isVerify;
   bool get isSignUpValid => _isSignUpValid;
-    bool get isContactValid => _isContactValid;
+  bool get isContactValid => _isContactValid;
+  bool get isCodeValid => _isCodeValid;
 
   AsyncButtonController get asyncButtonController => _asyncButtonController;
+
+  void validateCode() {
+    bool isValid = (_codeController.text.trim().length == 6);
+    if (isValid != _isCodeValid) {
+      _isCodeValid = isValid;
+      notifyListeners();
+    }
+
+    if (isValid) WidgetsBinding.instance.addPostFrameCallback((_) => asyncButtonController.triggerPressed());
+  }
 
   Future<bool> isUserSignedIn() async {
     final result = await Amplify.Auth.fetchAuthSession();
@@ -65,16 +76,39 @@ class AuthController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void registerAccount() async {
-    await Amplify.Auth.signUp(
-      username: _emailController.text,
-      password: _passwordController.text,
-      options: CognitoSignUpOptions(
-        userAttributes: {CognitoUserAttributeKey.email: _emailController.text},
-      ),
-    );
-    _isSignUpValid = true;
-    notifyListeners();
+  Future<void> signUpUser() async {
+    try {
+      final userAttributes = <CognitoUserAttributeKey, String>{
+        CognitoUserAttributeKey.email: _emailController.text,
+        CognitoUserAttributeKey.phoneNumber: _passwordController.text,
+        // additional attributes as needed
+      };
+      final result = await Amplify.Auth.signUp(
+        username: _emailController.text,
+        password: _passwordController.text,
+        options: CognitoSignUpOptions(userAttributes: userAttributes),
+      );
+      //  setState(() {
+      //    isSignUpComplete = result.isSignUpComplete;
+      //  });
+    } on AuthException catch (e) {
+      safePrint(e.message);
+    }
+  }
+
+// Use the boolean created before
+  bool isSignUpComplete = false;
+
+  Future<void> confirmUser() async {
+    try {
+      final result =
+          await Amplify.Auth.confirmSignUp(username: _emailController.text, confirmationCode: _codeController.text);
+      // setState(() {
+      //   isSignUpComplete = result.isSignUpComplete;
+      // });
+    } on AuthException catch (e) {
+      safePrint(e.message);
+    }
   }
 
   void requestVerificationCode() {

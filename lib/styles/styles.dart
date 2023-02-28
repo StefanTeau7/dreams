@@ -223,7 +223,7 @@ class Styles {
   static const uiMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: white,
+    color: wine,
     fontWeight: FontWeight.w400,
     height: 1.3,
   );

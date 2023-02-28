@@ -32,7 +32,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apidreamcatcher"
       },
-      "lastPushTimeStamp": "2023-02-25T19:45:18.503Z",
+      "lastPushTimeStamp": "2023-02-28T05:20:47.701Z",
       "lastPushDirHash": "jN9Fyu9SH6VQq4hYqySErcLhJb0="
     }
   },
@@ -67,7 +67,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatchera21a549f-cloudformation-template.json",
         "logicalId": "authdreamcatchera21a549f"
       },
-      "lastPushTimeStamp": "2023-02-25T19:45:18.503Z",
+      "lastPushTimeStamp": "2023-02-28T05:20:47.715Z",
       "lastPushDirHash": "51t2BOrYsK4xuP1P9tsdpvIlFsw="
     }
   }

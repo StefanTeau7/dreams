@@ -1,6 +1,7 @@
 import 'package:change_notifier_builder/change_notifier_builder.dart';
 import 'package:dream_catcher/routing/router.dart';
 import 'package:dream_catcher/screens/auth/auth_controller.dart';
+import 'package:dream_catcher/screens/auth/auth_verify_code.dart';
 import 'package:dream_catcher/screens/auth/sign_in.dart';
 import 'package:dream_catcher/screens/auth/sign_up.dart';
 import 'package:dream_catcher/styles/styles.dart';
@@ -51,14 +52,16 @@ class _AuthBaseState extends State<AuthBase> {
         // if (_authController.isVerify) {
         //   body = AuthVerifyCode(authController: _authController);
         // } else
-        if (_authController.isSignIn) {
+        if (_authController.isVerify) {
+          body = AuthVerifyCode(authController: _authController);
+        } else if (_authController.isSignIn) {
           body = AuthSignIn(authController: _authController);
         } else {
           body = AuthSignUp(authController: _authController);
         }
         return Scaffold(
           body: Container(
-            decoration: BoxDecoration(color: Styles.lightBg, image: image),
+            decoration: BoxDecoration(color: Styles.wine, image: image),
             child: SafeArea(
               child: Align(
                 alignment: Alignment.topCenter,

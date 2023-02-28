@@ -1,7 +1,0 @@
-{
-    "AppSyncApiName": "dreamcatcher",
-    "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": false,
-    "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/b11063aecc17de21b22e990ee52a4409771d5119"
-}
