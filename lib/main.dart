@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dream_catcher/main_app.dart';
 import 'package:dream_catcher/screens/auth/auth_controller.dart';
 import 'package:dream_catcher/services/dependency_injection.dart';

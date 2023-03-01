@@ -1,7 +1,7 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/routing/router.dart';
-import 'package:dream_catcher/screens/app/single_dream_screen.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:dream_catcher/services/model_service.dart';
@@ -27,40 +27,41 @@ class _MainAppState extends State<MainApp> {
     _configureAmplify();
   }
 
-  Future<void> _configureAmplify() async {
+  void _configureAmplify() async {
     try {
-      final auth = AmplifyAuthCognito();
-      await Amplify.addPlugin(auth);
-
-      //    call Amplify.configure to use the initialized categories in your app
+      await Amplify.addPlugin(AmplifyAuthCognito());
       await Amplify.configure(amplifyconfig);
+      print('Successfully configured');
     } on Exception catch (e) {
-      safePrint('An error occurred configuring Amplify: $e');
+      print('Error configuring Amplify: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
-        ChangeNotifierProvider<ChatService>(create: (context) => getIt<ChatService>()),
-      ],
-      child: Portal(
-        child: GestureDetector(
-            onTap: () {
-              // FocusScope.of(context).requestFocus(FocusNode());
-              // SystemChannels.textInput.invokeMethod('TextInput.hide');
-            },
-          child: GetMaterialApp.router(
-            title: "Dream Catcher", // This title appears on a web browser tab.
-            enableLog: false,
-            debugShowCheckedModeBanner: false,
-            // theme: theme(context),
-            theme: lightTheme,
-            routeInformationParser: routeParser,
-            routerDelegate: router,
-          )),
+    return Authenticator(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
+          ChangeNotifierProvider<ChatService>(create: (context) => getIt<ChatService>()),
+        ],
+        child: Portal(
+          child: GestureDetector(
+              onTap: () {
+                // FocusScope.of(context).requestFocus(FocusNode());
+                // SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              child: GetMaterialApp.router(
+                builder: Authenticator.builder(),
+                title: "Dream Catcher", // This title appears on a web browser tab.
+                enableLog: false,
+                debugShowCheckedModeBanner: false,
+                // theme: theme(context),
+                theme: lightTheme,
+                routeInformationParser: routeParser,
+                routerDelegate: router,
+              )),
+        ),
       ),
     );
   }

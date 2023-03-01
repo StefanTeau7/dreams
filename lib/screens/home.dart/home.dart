@@ -11,6 +11,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return const Material(child: MaterialApp(home: Scaffold(body: DreamCollection())));
+    return const MaterialApp(home: Scaffold(body: DreamCollection()));
   }
 }
