@@ -20,11 +20,45 @@ const amplifyconfig = ''' {
                 "IdentityManager": {
                     "Default": {}
                 },
-                "AppSync": {
+                "CredentialsProvider": {
+                    "CognitoIdentity": {
+                        "Default": {
+                            "PoolId": "us-west-1:a5f2bd5d-91f5-4974-9ac3-358701b4fcec",
+                            "Region": "us-west-1"
+                        }
+                    }
+                },
+                "CognitoUserPool": {
                     "Default": {
-                        "Region": "us-west-1",
-                        "AuthMode": "API_KEY",
-                        "ClientDatabasePrefix": "dreamcatcher_API_KEY"
+                        "PoolId": "us-west-1_qqvHKM0TB",
+                        "AppClientId": "8n499tslb10q04jmo3qrni5j9",
+                        "Region": "us-west-1"
+                    }
+                },
+                "Auth": {
+                    "Default": {
+                        "authenticationFlowType": "USER_SRP_AUTH",
+                        "socialProviders": [],
+                        "usernameAttributes": [
+                            "EMAIL"
+                        ],
+                        "signupAttributes": [],
+                        "passwordProtectionSettings": {
+                            "passwordPolicyMinLength": 8,
+                            "passwordPolicyCharacters": [
+                                "REQUIRES_LOWERCASE",
+                                "REQUIRES_NUMBERS",
+                                "REQUIRES_SYMBOLS",
+                                "REQUIRES_UPPERCASE"
+                            ]
+                        },
+                        "mfaConfiguration": "OFF",
+                        "mfaTypes": [
+                            "SMS"
+                        ],
+                        "verificationMechanisms": [
+                            "EMAIL"
+                        ]
                     }
                 }
             }

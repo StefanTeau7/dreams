@@ -152,54 +152,44 @@
         }
       }
     },
-    "apidreamcatcher": {
+    "authdreamcatcher": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
         "Parameters": {
-          "AppSyncApiName": "dreamcatcher",
-          "DynamoDBBillingMode": "PAY_PER_REQUEST",
-          "DynamoDBEnableServerSideEncryption": false,
-          "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/b11063aecc17de21b22e990ee52a4409771d5119",
-          "env": "dev"
-        }
-      }
-    },
-    "authdreamcatchera21a549f": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatchera21a549f-cloudformation-template.json",
-        "Parameters": {
-          "identityPoolName": "dreamcatchera21a549f_identitypool_a21a549f",
+          "identityPoolName": "testAuthIdentityPool",
           "allowUnauthenticatedIdentities": false,
-          "resourceNameTruncated": "dreamca21a549f",
-          "userPoolName": "dreamcatchera21a549f_userpool_a21a549f",
+          "resourceNameTruncated": "dreamca7a958ec",
+          "userPoolName": "dreamcatcher",
           "autoVerifiedAttributes": "email",
           "mfaConfiguration": "OFF",
           "mfaTypes": "SMS Text Message",
           "smsAuthenticationMessage": "Your authentication code is {####}",
           "smsVerificationMessage": "Your verification code is {####}",
-          "emailVerificationSubject": "Your verification code",
-          "emailVerificationMessage": "Your verification code is {####}",
+          "emailVerificationSubject": "Verification code: {####}",
+          "emailVerificationMessage": "Verification code: {####}",
           "defaultPasswordPolicy": false,
           "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": "",
-          "requiredAttributes": "email",
+          "passwordPolicyCharacters": "Requires Lowercase,Requires Numbers,Requires Symbols,Requires Uppercase",
+          "requiredAttributes": "",
           "aliasAttributes": "",
           "userpoolClientGenerateSecret": false,
           "userpoolClientRefreshTokenValidity": 30,
-          "userpoolClientWriteAttributes": "email",
-          "userpoolClientReadAttributes": "email",
-          "userpoolClientLambdaRole": "dreamca21a549f_userpoolclient_lambda_role",
+          "userpoolClientWriteAttributes": "",
+          "userpoolClientReadAttributes": "",
+          "userpoolClientLambdaRole": "dreamca7a958ec_userpoolclient_lambda_role",
           "userpoolClientSetAttributes": false,
-          "sharedId": "a21a549f",
-          "resourceName": "dreamcatchera21a549f",
+          "sharedId": "a7a958ec",
+          "resourceName": "dreamcatcher",
           "authSelections": "identityPoolAndUserPool",
-          "useDefault": "default",
-          "usernameAttributes": "email, phone_number",
-          "userPoolGroupList": "",
           "serviceName": "Cognito",
+          "usernameAttributes": "email,phone_number",
+          "useDefault": "manual",
+          "userPoolGroups": false,
+          "userPoolGroupList": "",
+          "adminQueries": false,
+          "thirdPartyAuth": false,
+          "authProviders": "",
           "usernameCaseSensitive": false,
           "useEnabledMfas": true,
           "authRoleArn": {
@@ -224,7 +214,7 @@
       "DependsOn": [
         "AuthRole",
         "UnauthRole",
-        "authdreamcatchera21a549f"
+        "authdreamcatcher"
       ],
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -319,7 +309,7 @@
         },
         "idpId": {
           "Fn::GetAtt": [
-            "authdreamcatchera21a549f",
+            "authdreamcatcher",
             "Outputs.IdentityPoolId"
           ]
         },

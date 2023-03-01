@@ -1,24 +1,6 @@
 {
-  "api": {
-    "dreamcatcher": {
-      "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            },
-            "authenticationType": "API_KEY"
-          }
-        }
-      },
-      "providerPlugin": "awscloudformation",
-      "service": "AppSync"
-    }
-  },
   "auth": {
-    "dreamcatchera21a549f": {
+    "dreamcatcher": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -27,16 +9,18 @@
           "SMS"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyCharacters": [],
+          "passwordPolicyCharacters": [
+            "REQUIRES_LOWERCASE",
+            "REQUIRES_NUMBERS",
+            "REQUIRES_SYMBOLS",
+            "REQUIRES_UPPERCASE"
+          ],
           "passwordPolicyMinLength": 8
         },
-        "signupAttributes": [
-          "EMAIL"
-        ],
+        "signupAttributes": [],
         "socialProviders": [],
         "usernameAttributes": [
-          "EMAIL",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"

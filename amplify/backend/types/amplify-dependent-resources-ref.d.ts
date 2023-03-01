@@ -1,15 +1,9 @@
 export type AmplifyDependentResourcesAttributes = {
-  "api": {
-    "dreamcatcher": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
-    }
-  },
   "auth": {
-    "dreamcatchera21a549f": {
+    "dreamcatcher": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
+      "CreatedSNSRole": "string",
       "IdentityPoolId": "string",
       "IdentityPoolName": "string",
       "UserPoolArn": "string",
