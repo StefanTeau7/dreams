@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "dreamcatcher": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "auth": {
     "dreamcatcher": {
       "customAuth": false,

@@ -18,6 +18,9 @@
       },
       "api": {
         "dreamcatcher": {}
+      },
+      "analytics": {
+        "dreamcatcher": {}
       }
     }
   }

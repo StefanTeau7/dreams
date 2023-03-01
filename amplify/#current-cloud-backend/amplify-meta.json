@@ -45,7 +45,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
         "logicalId": "authdreamcatcher"
       },
-      "lastPushTimeStamp": "2023-03-01T17:25:03.590Z",
+      "lastPushTimeStamp": "2023-03-01T20:53:03.352Z",
       "output": {
         "CreatedSNSRole": "arn:aws:iam::339143710696:role/snsa7a958ec113350-dev",
         "UserPoolId": "us-west-1_qqvHKM0TB",
@@ -56,7 +56,24 @@
         "IdentityPoolName": "testAuthIdentityPool__dev",
         "UserPoolName": "dreamcatcher"
       },
-      "lastPushDirHash": "N2ZQQvtP08Dyk8bOq6nCin7spBE="
+      "lastPushDirHash": "HMiITcL67jsgAiLf/387FoR7yig="
+    }
+  },
+  "analytics": {
+    "dreamcatcher": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticsdreamcatcher"
+      },
+      "lastPushTimeStamp": "2023-03-01T20:53:05.059Z",
+      "output": {
+        "appName": "dreamcatcher-dev",
+        "Region": "us-west-2",
+        "Id": "891bebd8446747b0acca80299c7b2dbd"
+      },
+      "lastPushDirHash": "YOBfcd9F1waq8pC1nDkn+V+r6OA="
     }
   }
 }

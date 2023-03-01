@@ -158,7 +158,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
         "Parameters": {
           "identityPoolName": "testAuthIdentityPool",
-          "allowUnauthenticatedIdentities": false,
+          "allowUnauthenticatedIdentities": true,
           "resourceNameTruncated": "dreamca7a958ec",
           "userPoolName": "dreamcatcher",
           "autoVerifiedAttributes": "email",
@@ -206,6 +206,34 @@
           },
           "breakCircularDependency": true,
           "dependsOn": "",
+          "env": "dev"
+        }
+      }
+    },
+    "analyticsdreamcatcher": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "Parameters": {
+          "appName": "dreamcatcher",
+          "roleName": "pinpointLambdaRoleda75d9d9",
+          "cloudformationPolicyName": "cloudformationPolicyda75d9d9",
+          "cloudWatchPolicyName": "cloudWatchPolicyda75d9d9",
+          "pinpointPolicyName": "pinpointPolicyda75d9d9",
+          "authPolicyName": "pinpoint_amplify_da75d9d9",
+          "unauthPolicyName": "pinpoint_amplify_da75d9d9",
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "authRoleArn": {
+            "Fn::GetAtt": [
+              "AuthRole",
+              "Arn"
+            ]
+          },
           "env": "dev"
         }
       }

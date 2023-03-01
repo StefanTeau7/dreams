@@ -60,6 +60,30 @@ const amplifyconfig = ''' {
                             "EMAIL"
                         ]
                     }
+                },
+                "PinpointAnalytics": {
+                    "Default": {
+                        "AppId": "891bebd8446747b0acca80299c7b2dbd",
+                        "Region": "us-west-2"
+                    }
+                },
+                "PinpointTargeting": {
+                    "Default": {
+                        "Region": "us-west-2"
+                    }
+                }
+            }
+        }
+    },
+    "analytics": {
+        "plugins": {
+            "awsPinpointAnalyticsPlugin": {
+                "pinpointAnalytics": {
+                    "appId": "891bebd8446747b0acca80299c7b2dbd",
+                    "region": "us-west-2"
+                },
+                "pinpointTargeting": {
+                    "region": "us-west-2"
                 }
             }
         }

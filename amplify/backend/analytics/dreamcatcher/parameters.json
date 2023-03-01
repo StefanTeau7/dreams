@@ -1,0 +1,21 @@
+{
+    "appName": "dreamcatcher",
+    "roleName": "pinpointLambdaRoleda75d9d9",
+    "cloudformationPolicyName": "cloudformationPolicyda75d9d9",
+    "cloudWatchPolicyName": "cloudWatchPolicyda75d9d9",
+    "pinpointPolicyName": "pinpointPolicyda75d9d9",
+    "authPolicyName": "pinpoint_amplify_da75d9d9",
+    "unauthPolicyName": "pinpoint_amplify_da75d9d9",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}
