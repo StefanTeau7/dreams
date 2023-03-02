@@ -37,18 +37,24 @@ class ApiService {
   // Send Message fct
   static Future<List<Chat>> sendMessage({required String message, required String modelId}) async {
     try {
+      String fixedMessage = message.trim();
       log("modelId $modelId");
       String baseUrl = dotenv.env['BASE_URL']!;
       String apiKey = dotenv.env['API_KEY']!;
       var response = await http.post(
-        Uri.parse("$baseUrl/completions"),
-        headers: {'Authorization': 'Bearer ${apiKey}', "Content-Type": "application/json"},
+        Uri.parse("$baseUrl/chat/completions"),
+        headers: {'Authorization': 'Bearer $apiKey', "Content-Type": "application/json"},
         body: jsonEncode(
           {
             "model": modelId,
-            "prompt": message,
-            //"Can you help analyze the following dream: $message",
-            //   "max_tokens": 300,
+            "messages": [
+              {
+                "role": "system",
+                "content":
+                    "You are a dream analysis assistant. Ask any questions that might help you analyze the dream then analyze it."
+              },
+              {"role": "user", "content": fixedMessage}
+            ]
           },
         ),
       );

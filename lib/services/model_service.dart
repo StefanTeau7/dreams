@@ -3,7 +3,9 @@ import 'package:dream_catcher/services/api_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class ModelService with ChangeNotifier {
-  String currentModel = "da-vinci-003";
+  String currentModel = "gpt-3.5-turbo";
+  List<Model> _modelsList = [];
+  
   String get getCurrentModel {
     return currentModel;
   }
@@ -16,11 +18,11 @@ class ModelService with ChangeNotifier {
   List<Model> modelsList = [];
 
   List<Model> get getModelsList {
-    return modelsList;
+    return _modelsList;
   }
 
   Future<List<Model>> getAllModels() async {
-    modelsList = await ApiService.getModels();
-    return modelsList;
+    _modelsList = await ApiService.getModels();
+    return _modelsList;
   }
 }
