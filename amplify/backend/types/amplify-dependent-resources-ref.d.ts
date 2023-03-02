@@ -6,6 +6,13 @@ export type AmplifyDependentResourcesAttributes = {
       "appName": "string"
     }
   },
+  "api": {
+    "dreamcatcher": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string",
+      "GraphQLAPIKeyOutput": "string"
+    }
+  },
   "auth": {
     "dreamcatcher": {
       "AppClientID": "string",

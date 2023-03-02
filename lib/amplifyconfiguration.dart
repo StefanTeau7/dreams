@@ -6,8 +6,10 @@ const amplifyconfig = ''' {
             "awsAPIPlugin": {
                 "dreamcatcher": {
                     "endpointType": "GraphQL",
+                    "endpoint": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
                     "region": "us-west-1",
-                    "authorizationType": "API_KEY"
+                    "authorizationType": "API_KEY",
+                    "apiKey": "da2-jtu6g2qcjzgglbhqedb3gtfkny"
                 }
             }
         }
@@ -70,6 +72,15 @@ const amplifyconfig = ''' {
                 "PinpointTargeting": {
                     "Default": {
                         "Region": "us-west-2"
+                    }
+                },
+                "AppSync": {
+                    "Default": {
+                        "ApiUrl": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
+                        "Region": "us-west-1",
+                        "AuthMode": "API_KEY",
+                        "ApiKey": "da2-jtu6g2qcjzgglbhqedb3gtfkny",
+                        "ClientDatabasePrefix": "dreamcatcher_API_KEY"
                     }
                 }
             }

@@ -1,4 +1,5 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/routing/router.dart';
 import 'package:dream_catcher/services/chat_service.dart';
@@ -38,26 +39,29 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
-        ChangeNotifierProvider<ChatService>(create: (context) => getIt<ChatService>()),
-      ],
-      child: Portal(
-        child: GestureDetector(
-            onTap: () {
-              // FocusScope.of(context).requestFocus(FocusNode());
-              // SystemChannels.textInput.invokeMethod('TextInput.hide');
-            },
-            child: GetMaterialApp.router(
-              title: "Dream Catcher", // This title appears on a web browser tab.
-              enableLog: false,
-              debugShowCheckedModeBanner: false,
-              // theme: theme(context),
-              theme: lightTheme,
-              routeInformationParser: routeParser,
-              routerDelegate: router,
-            )),
+    return Authenticator(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
+          ChangeNotifierProvider<ChatService>(create: (context) => getIt<ChatService>()),
+        ],
+        child: Portal(
+          child: GestureDetector(
+              onTap: () {
+                // FocusScope.of(context).requestFocus(FocusNode());
+                // SystemChannels.textInput.invokeMethod('TextInput.hide');
+              },
+              child: GetMaterialApp.router(
+                builder: Authenticator.builder(),
+                title: "Dream Catcher", // This title appears on a web browser tab.
+                enableLog: false,
+                debugShowCheckedModeBanner: false,
+                // theme: theme(context),
+                theme: lightTheme,
+                routeInformationParser: routeParser,
+                routerDelegate: router,
+              )),
+        ),
       ),
     );
   }
