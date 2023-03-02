@@ -24,5 +24,11 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolId": "string",
       "UserPoolName": "string"
     }
+  },
+  "storage": {
+    "s3dreamcatcherstoragee009c136": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

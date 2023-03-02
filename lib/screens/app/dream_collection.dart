@@ -1,4 +1,5 @@
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
+import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,7 @@ class _DreamCollectionState extends State<DreamCollection> {
             color: Styles.wine,
           ),
           onPressed: () {
+            DreamService.queryListItems();
             Navigator.push(
               context,
               MaterialPageRoute(builder: (newContext) => SingleDreamScreen()),

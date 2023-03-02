@@ -152,6 +152,54 @@
         }
       }
     },
+    "analyticsdreamcatcher": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "Parameters": {
+          "appName": "dreamcatcher",
+          "roleName": "pinpointLambdaRoleda75d9d9",
+          "cloudformationPolicyName": "cloudformationPolicyda75d9d9",
+          "cloudWatchPolicyName": "cloudWatchPolicyda75d9d9",
+          "pinpointPolicyName": "pinpointPolicyda75d9d9",
+          "authPolicyName": "pinpoint_amplify_da75d9d9",
+          "unauthPolicyName": "pinpoint_amplify_da75d9d9",
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "authRoleArn": {
+            "Fn::GetAtt": [
+              "AuthRole",
+              "Arn"
+            ]
+          },
+          "env": "dev"
+        }
+      }
+    },
+    "apidreamcatcher": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "Parameters": {
+          "AppSyncApiName": "dreamcatcher",
+          "DynamoDBBillingMode": "PAY_PER_REQUEST",
+          "DynamoDBEnableServerSideEncryption": false,
+          "authRoleName": {
+            "Ref": "AuthRoleName"
+          },
+          "unauthRoleName": {
+            "Ref": "UnauthRoleName"
+          },
+          "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/5d2d56e67b239c78a48b56fb2047d10572e4d83a",
+          "env": "dev"
+        }
+      }
+    },
     "authdreamcatcher": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
@@ -210,44 +258,35 @@
         }
       }
     },
-    "analyticsdreamcatcher": {
+    "storages3dreamcatcherstoragee009c136": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "Parameters": {
-          "appName": "dreamcatcher",
-          "roleName": "pinpointLambdaRoleda75d9d9",
-          "cloudformationPolicyName": "cloudformationPolicyda75d9d9",
-          "cloudWatchPolicyName": "cloudWatchPolicyda75d9d9",
-          "pinpointPolicyName": "pinpointPolicyda75d9d9",
-          "authPolicyName": "pinpoint_amplify_da75d9d9",
-          "unauthPolicyName": "pinpoint_amplify_da75d9d9",
-          "authRoleName": {
-            "Ref": "AuthRoleName"
-          },
+          "bucketName": "dreamcatcher-storage-e009c136",
+          "selectedGuestPermissions": "",
+          "selectedAuthenticatedPermissions": "s3:PutObject,s3:GetObject,s3:ListBucket",
           "unauthRoleName": {
             "Ref": "UnauthRoleName"
           },
-          "authRoleArn": {
-            "Fn::GetAtt": [
-              "AuthRole",
-              "Arn"
-            ]
+          "authRoleName": {
+            "Ref": "AuthRoleName"
           },
-          "env": "dev"
-        }
-      }
-    },
-    "apidreamcatcher": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "Parameters": {
-          "AppSyncApiName": "dreamcatcher",
-          "DynamoDBBillingMode": "PAY_PER_REQUEST",
-          "DynamoDBEnableServerSideEncryption": false,
-          "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/b11063aecc17de21b22e990ee52a4409771d5119",
+          "s3PrivatePolicy": "Private_policy_4ac9161b",
+          "s3ProtectedPolicy": "Protected_policy_4ac9161b",
+          "s3PublicPolicy": "Public_policy_4ac9161b",
+          "s3ReadPolicy": "read_policy_4ac9161b",
+          "s3UploadsPolicy": "Uploads_policy_4ac9161b",
+          "authPolicyName": "s3_amplify_4ac9161b",
+          "unauthPolicyName": "s3_amplify_4ac9161b",
+          "AuthenticatedAllowList": "ALLOW",
+          "GuestAllowList": "DISALLOW",
+          "s3PermissionsAuthenticatedPrivate": "s3:PutObject,s3:GetObject",
+          "s3PermissionsAuthenticatedProtected": "s3:PutObject,s3:GetObject",
+          "s3PermissionsAuthenticatedPublic": "s3:PutObject,s3:GetObject",
+          "s3PermissionsAuthenticatedUploads": "s3:PutObject",
+          "s3PermissionsGuestPublic": "DISALLOW",
+          "s3PermissionsGuestUploads": "DISALLOW",
           "env": "dev"
         }
       }

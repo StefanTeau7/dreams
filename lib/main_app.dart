@@ -1,6 +1,8 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:dream_catcher/models/ModelProvider.dart';
 import 'package:dream_catcher/routing/router.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dependency_injection.dart';
@@ -30,6 +32,11 @@ class _MainAppState extends State<MainApp> {
   void _configureAmplify() async {
     try {
       await Amplify.addPlugin(AmplifyAuthCognito());
+      AmplifyDataStore datastorePlugin = AmplifyDataStore(
+        modelProvider: ModelProvider.instance,
+        errorHandler: ((error) => {print("Custom ErrorHandler received: " + error.toString())}),
+      );
+      await Amplify.addPlugin(datastorePlugin);
       await Amplify.configure(amplifyconfig);
       print('Successfully configured');
     } on Exception catch (e) {

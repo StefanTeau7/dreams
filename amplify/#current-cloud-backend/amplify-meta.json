@@ -12,18 +12,62 @@
       "AmplifyAppId": "drq2skg8e1cip"
     }
   },
+  "analytics": {
+    "dreamcatcher": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint",
+      "output": {
+        "appName": "dreamcatcher-dev",
+        "Region": "us-west-2",
+        "Id": "891bebd8446747b0acca80299c7b2dbd"
+      },
+      "lastPushTimeStamp": "2023-03-02T05:57:32.453Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticsdreamcatcher"
+      }
+    }
+  },
+  "api": {
+    "dreamcatcher": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            },
+            "authenticationType": "API_KEY"
+          }
+        },
+        "GraphQLAPIIdOutput": "jxogkr7x7zedhjxqksatvdho2q",
+        "GraphQLAPIEndpointOutput": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-jtu6g2qcjzgglbhqedb3gtfkny"
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync",
+      "lastPushTimeStamp": "2023-03-02T05:57:32.455Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apidreamcatcher"
+      }
+    }
+  },
   "auth": {
     "dreamcatcher": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
         ],
-        "signupAttributes": [],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": [
@@ -33,19 +77,17 @@
             "REQUIRES_UPPERCASE"
           ]
         },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
-        "logicalId": "authdreamcatcher"
-      },
-      "lastPushTimeStamp": "2023-03-02T03:15:41.950Z",
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
       "output": {
         "CreatedSNSRole": "arn:aws:iam::339143710696:role/snsa7a958ec113350-dev",
         "UserPoolId": "us-west-1_qqvHKM0TB",
@@ -56,51 +98,28 @@
         "IdentityPoolName": "testAuthIdentityPool__dev",
         "UserPoolName": "dreamcatcher"
       },
-      "lastPushDirHash": "HMiITcL67jsgAiLf/387FoR7yig="
-    }
-  },
-  "analytics": {
-    "dreamcatcher": {
-      "service": "Pinpoint",
-      "providerPlugin": "awscloudformation",
+      "lastPushTimeStamp": "2023-03-02T05:57:32.456Z",
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
-        "logicalId": "analyticsdreamcatcher"
-      },
-      "lastPushTimeStamp": "2023-03-02T03:15:41.953Z",
-      "output": {
-        "appName": "dreamcatcher-dev",
-        "Region": "us-west-2",
-        "Id": "891bebd8446747b0acca80299c7b2dbd"
-      },
-      "lastPushDirHash": "YOBfcd9F1waq8pC1nDkn+V+r6OA="
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
+        "logicalId": "authdreamcatcher"
+      }
     }
   },
-  "api": {
-    "dreamcatcher": {
-      "service": "AppSync",
+  "storage": {
+    "s3dreamcatcherstoragee009c136": {
+      "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
-            }
-          },
-          "additionalAuthenticationProviders": []
-        },
-        "GraphQLAPIIdOutput": "jxogkr7x7zedhjxqksatvdho2q",
-        "GraphQLAPIEndpointOutput": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
-        "GraphQLAPIKeyOutput": "da2-jtu6g2qcjzgglbhqedb3gtfkny"
-      },
+      "lastPushTimeStamp": "2023-03-02T05:57:32.516Z",
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-        "logicalId": "apidreamcatcher"
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storages3dreamcatcherstoragee009c136"
       },
-      "lastPushTimeStamp": "2023-03-02T03:15:42.127Z",
-      "lastPushDirHash": "jN9Fyu9SH6VQq4hYqySErcLhJb0="
+      "output": {
+        "BucketName": "dreamcatcher-storage-e009c136113350-dev",
+        "Region": "us-west-1"
+      },
+      "lastPushDirHash": "t4SMWNwa0EiV+Ri0iH9omye+TYQ="
     }
   }
 }
