@@ -9,6 +9,7 @@ const String ANDROID = 'ANDROID';
 const String WEB = 'WEB';
 const String MACOS = 'MACOS';
 AuthStatus authStatus = AuthStatus.unknown;
+String AI_MODEL_ID = "gpt-3.5-turbo";
 
 // max size of wideLayout
 const double MAX_SCREEN_WIDTH = 1200.0;

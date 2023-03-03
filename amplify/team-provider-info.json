@@ -21,6 +21,9 @@
       },
       "analytics": {
         "dreamcatcher": {}
+      },
+      "storage": {
+        "s3dreamcatcherstoragee009c136": {}
       }
     }
   }

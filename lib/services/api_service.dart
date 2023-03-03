@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:dream_catcher/main.dart';
 import 'package:dream_catcher/models/chat.dart';
 import 'package:dream_catcher/models/models.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -35,28 +36,31 @@ class ApiService {
   }
 
   // Send Message fct
-  static Future<List<Chat>> sendMessage({required String message, required String modelId}) async {
+  static Future<List<Chat>> sendMessage({required List<Chat> list}) async {
     try {
-      String fixedMessage = message.trim();
-      log("modelId $modelId");
+      var chatJson = {"model": AI_MODEL_ID};
+      var messages = [];
+      final instruction = {
+        "role": "system",
+        "content":
+            "You are a dream analysis assistant. Ask any questions that might help you analyze the following dream then analyze it."
+      };
+      messages.add(instruction);
+
+      for (Chat c in list) {
+        final chat = {"role": c.role, "content": c.text};
+        messages.add(chat);
+      }
+      chatJson["messages"] = messages.toString();
+
+      String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;
       String apiKey = dotenv.env['API_KEY']!;
+      return [];
       var response = await http.post(
         Uri.parse("$baseUrl/chat/completions"),
         headers: {'Authorization': 'Bearer $apiKey', "Content-Type": "application/json"},
-        body: jsonEncode(
-          {
-            "model": modelId,
-            "messages": [
-              {
-                "role": "system",
-                "content":
-                    "You are a dream analysis assistant. Ask any questions that might help you analyze the following dream then analyze it."
-              },
-              {"role": "user", "content": fixedMessage}
-            ]
-          },
-        ),
+        body: body,
       );
 
       Map jsonResponse = jsonDecode(response.body);
@@ -71,8 +75,9 @@ class ApiService {
         chatList = List.generate(
           jsonResponse["choices"].length,
           (index) => Chat(
-            msg: jsonResponse["choices"][index]["message"]["content"],
-            chatIndex: 1,
+            role: ChatRoleType.ASSISTANT,
+            text: jsonResponse["choices"][index]["message"]["content"],
+            chatIndex: list.last.chatIndex + 1,
           ),
         );
       }

@@ -195,7 +195,7 @@
             "Ref": "UnauthRoleName"
           },
           "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/5d2d56e67b239c78a48b56fb2047d10572e4d83a",
+          "S3DeploymentRootKey": "amplify-appsync-files/a839369ddd6c1c8e59529d84111a6307a8028bab",
           "env": "dev"
         }
       }

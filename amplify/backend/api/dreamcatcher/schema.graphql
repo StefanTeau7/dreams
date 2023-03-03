@@ -1,8 +1,21 @@
-type Dream @model @auth(rules: [{allow: public, operations: [create, read, update]}]) {
+type Dream {
+  id: ID
+  subject: String
+  user: User
+}
+
+type User {
+  id: ID
+  first: String
+  last: String
+  phone: String
+  email: String
+  password: String
+}
+
+type Chat @model @auth(rules: [{allow: public}]) {
   id: ID!
-  subject: String!
-  summary: String
-  archived: Boolean
-  createdAt: AWSDateTime
+  text: String
+  dream: Dream
 }
  

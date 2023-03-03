@@ -1,3 +1,5 @@
+import 'package:dream_catcher/models/chat.dart';
+import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/model_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
@@ -18,6 +20,8 @@ class SingleDreamScreen extends StatefulWidget {
 class _SingleDreamScreenState extends State<SingleDreamScreen> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
+  String chatId = "123";
+
   @override
   void initState() {
     super.initState();
@@ -83,21 +87,26 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                       Flexible(
                         child: ListView.builder(
                             // controller: _listScrollController,
-                            itemCount: chatService.getChatList.length, //chatList.length,
+                            itemCount: chatService.getChatListById(chatId)?.length,
                             itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: DreamCard(
-                                  width: 600,
-                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                    Text(
-                                      chatService.getChatList[index].msg,
-                                      style: Styles.uiSemiBoldMedium,
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ]),
-                                ),
-                              );
+                              if (chatService.getChatListById(chatId) != null &&
+                                  chatService.getChatListById(chatId)!.isNotEmpty) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: DreamCard(
+                                    width: 600,
+                                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                      Text(
+                                        chatService.getChatListById(chatId)![index].text,
+                                        style: Styles.uiSemiBoldMedium,
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ]),
+                                  ),
+                                );
+                              } else {
+                                return Container();
+                              }
                             }),
                       ),
                     ],
@@ -113,11 +122,15 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
 
   Future<void> sendMessage(ModelService modelService, ChatService chatService) async {
     setState(() {
-      // chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
-      chatService.addUserMessage(msg: _textEditingController.text);
+      chatService.addUserMessage(id: "123", text: _textEditingController.text);
     });
-    await chatService.sendMessageAndGetAnswers(
-        msg: _textEditingController.text, chosenModelId: modelService.getCurrentModel);
+
+    List<Chat>? list = chatService.getChatListById("123");
+    if (list != null) {
+      await ApiService.sendMessage(
+        list: list,
+      );
+    }
 
     setState(() {
       _textEditingController.clear();
