@@ -51,7 +51,7 @@ class ApiService {
               {
                 "role": "system",
                 "content":
-                    "You are a dream analysis assistant. Ask any questions that might help you analyze the dream then analyze it."
+                    "You are a dream analysis assistant. Ask any questions that might help you analyze the following dream then analyze it."
               },
               {"role": "user", "content": fixedMessage}
             ]
@@ -71,7 +71,7 @@ class ApiService {
         chatList = List.generate(
           jsonResponse["choices"].length,
           (index) => Chat(
-            msg: jsonResponse["choices"][index]["text"],
+            msg: jsonResponse["choices"][index]["message"]["content"],
             chatIndex: 1,
           ),
         );

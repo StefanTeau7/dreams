@@ -79,7 +79,7 @@ class Styles {
     fontFamily: _headlineFont,
     fontSize: _headlineLargeFontSize,
     fontWeight: FontWeight.w400,
-    color: white,
+    color: wine,
   );
 
   static const headlineMedium = TextStyle(
@@ -190,7 +190,7 @@ class Styles {
   static const uiSemiBoldMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: white,
+    color: wine,
     fontWeight: FontWeight.w600,
   );
   static const uiSemiBoldSmall = TextStyle(

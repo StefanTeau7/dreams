@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class ModelService with ChangeNotifier {
   String currentModel = "gpt-3.5-turbo";
   List<Model> _modelsList = [];
-  
+
   String get getCurrentModel {
     return currentModel;
   }

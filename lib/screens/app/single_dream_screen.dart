@@ -89,10 +89,11 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: DreamCard(
                                   width: 600,
-                                  child: Column(children: [
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                     Text(
                                       chatService.getChatList[index].msg,
-                                      style: Styles.headlineLarge,
+                                      style: Styles.uiSemiBoldMedium,
+                                      textAlign: TextAlign.start,
                                     ),
                                   ]),
                                 ),
