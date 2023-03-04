@@ -1,6 +1,7 @@
 import 'package:dream_catcher/models/chat.dart';
 import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
+import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/services/model_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SingleDreamScreen extends StatefulWidget {
-  const SingleDreamScreen({super.key});
+  ChatId? chatId;
+  SingleDreamScreen({super.key, this.chatId});
 
   @override
   State<SingleDreamScreen> createState() => _SingleDreamScreenState();
@@ -20,7 +22,6 @@ class SingleDreamScreen extends StatefulWidget {
 class _SingleDreamScreenState extends State<SingleDreamScreen> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
-  String chatId = "123";
 
   @override
   void initState() {
@@ -67,12 +68,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                               print(value);
                             },
                             label: "Write your dream",
-                            onSubmitted: (value) async {
-                              await sendMessage(
-                                modelService,
-                                chatService,
-                              );
-                            },
                           )),
                       // button
                       SimpleButton(
@@ -80,35 +75,32 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         label: "Analyze",
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
-                          sendMessage(modelService, chatService);
+                          DreamService.createDream();
+                          //   sendMessage(modelService, chatService);
                         },
                       ),
                       // result
-                      Flexible(
-                        child: ListView.builder(
-                            // controller: _listScrollController,
-                            itemCount: chatService.getChatListById(chatId)?.length,
-                            itemBuilder: (context, index) {
-                              if (chatService.getChatListById(chatId) != null &&
-                                  chatService.getChatListById(chatId)!.isNotEmpty) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: DreamCard(
-                                    width: 600,
-                                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                      Text(
-                                        chatService.getChatListById(chatId)![index].text,
-                                        style: Styles.uiSemiBoldMedium,
-                                        textAlign: TextAlign.start,
+                      widget.chatId != null
+                          ? Flexible(
+                              child: ListView.builder(
+                                  // controller: _listScrollController,
+                                  itemCount: chatService.getChatListById(widget.chatId)?.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: DreamCard(
+                                        width: 600,
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                          Text(
+                                            chatService.getChatListById(widget.chatId)![index].text,
+                                            style: Styles.uiSemiBoldMedium,
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ]),
                                       ),
-                                    ]),
-                                  ),
-                                );
-                              } else {
-                                return Container();
-                              }
-                            }),
-                      ),
+                                    );
+                                  }))
+                          : Container()
                     ],
                   ),
                 ),
@@ -122,10 +114,10 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
 
   Future<void> sendMessage(ModelService modelService, ChatService chatService) async {
     setState(() {
-      chatService.addUserMessage(id: "123", text: _textEditingController.text);
+      chatService.addUserMessage(id: widget.chatId, text: _textEditingController.text);
     });
 
-    List<Chat>? list = chatService.getChatListById("123");
+    List<Chat>? list = chatService.getChatListById(widget.chatId);
     if (list != null) {
       await ApiService.sendMessage(
         list: list,

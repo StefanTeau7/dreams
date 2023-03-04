@@ -2,17 +2,18 @@ import 'package:dream_catcher/models/chat.dart';
 import 'package:flutter/cupertino.dart';
 
 class ChatService with ChangeNotifier {
-  Map<String, List<Chat>> chatsById = {};
+  Map<ChatId, List<Chat>> chatsById = {};
   // List<Chat> chatList = [];
   // List<Chat> get getChatList {
   //   return chatList;
   // }
 
-  List<Chat>? getChatListById(String id) {
+  List<Chat>? getChatListById(ChatId? id) {
+    if (id == null) return null;
     return chatsById[id];
   }
 
-  void addUserMessage({required String id, required String text}) {
+  void addUserMessage({required ChatId? id, required String text}) {
     List<Chat>? list = getChatListById(id);
     if (list == null) {
       // create list

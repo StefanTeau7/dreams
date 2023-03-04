@@ -12,6 +12,21 @@ class Chat {
       );
 }
 
+
+class ChatId {
+  final String _value;
+  const ChatId(this._value);
+
+  @override
+  String toString() => _value;
+
+  @override
+  bool operator ==(other) => other is ChatId && _value == other._value;
+
+  @override
+  int get hashCode => _value.hashCode;
+}
+
 class ChatRoleType {
   final String _value;
   const ChatRoleType._internal(this._value);
