@@ -2,13 +2,19 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/models/dream.dart';
 
 class DreamService {
-  static Future<void> createDream() async {
+  static final Map<String, Dream> _dreamsById = {};
+
+  static List<Dream> getAllMyDreams() {
+    return _dreamsById.values.toList();
+  }
+
+  static Future<void> createDream(String subject, String summary) async {
     try {
       final model = Dream(
-          subject: "Lorem ipsum dolor sit amet",
-          summary: "Lorem ipsum dolor sit amet",
-          archived: true,
-          createdAt: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"));
+        subject: subject,
+        //   user: null,
+        id: null,
+      );
 
       await Amplify.DataStore.save(model);
       // final request = ModelMutations.create(model);
@@ -26,10 +32,8 @@ class DreamService {
 
   Future<void> updateDream(Dream originalDream) async {
     final updatedModel = originalDream.copyWith(
-        subject: "Lorem ipsum dolor sit amet",
-        summary: "Lorem ipsum dolor sit amet",
-        archived: false,
-        createdAt: TemporalDateTime.fromString("1970-01-01T12:30:23.999Z"));
+      subject: "Lorem ipsum dolor sit amet",
+    );
 
     // final request = ModelMutations.update(updatedModel);
     // final response = await Amplify.API.mutate(request: request).response;
@@ -42,6 +46,10 @@ class DreamService {
       // final request = ModelQueries.list(Dream.classType);
       // final response = await Amplify.API.query(request: request).response;
       // final items = response.data?.items;
+
+      for (Dream dream in items) {
+        _dreamsById[dream.id] = dream;
+      }
       print('Dreams: $items');
       return items;
     } on ApiException catch (e) {

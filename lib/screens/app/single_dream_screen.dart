@@ -1,7 +1,6 @@
 import 'package:dream_catcher/models/chat.dart';
 import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
-import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/services/model_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
@@ -75,7 +74,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         label: "Analyze",
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
-                          DreamService.createDream();
+                          //        DreamService.createDream();
                           //   sendMessage(modelService, chatService);
                         },
                       ),

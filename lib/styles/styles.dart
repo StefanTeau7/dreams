@@ -18,7 +18,7 @@ class Styles {
   static const Color green = Color(0xFF60BF69);
   static const Color lime = Color(0xFFCDFFAE);
   static const Color limeLight = Color(0xFFE6FFD7);
-  static const Color wine = Color(0xFF8C215B);
+  static const Color wine = Color(0xFF7C2159);
   static const Color choco = Color(0xFF202020);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);

@@ -1,4 +1,6 @@
+import 'package:dream_catcher/models/dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
+import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +71,9 @@ class _DreamCollectionState extends State<DreamCollection> {
   }
 
   _buildDreamGrid() {
+    List<Dream> myDreams = DreamService.getAllMyDreams();
     return GridView.builder(
-        itemCount: titles.length,
+        itemCount: myDreams.length,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 300, mainAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
         itemBuilder: (context, i) {
@@ -79,7 +82,7 @@ class _DreamCollectionState extends State<DreamCollection> {
             color: Styles.wine.withOpacity(0.7),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(
-                titles[i],
+                myDreams[i].subject,
                 style: Styles.uiBoldLarge,
               ),
               const SizedBox(
@@ -87,7 +90,7 @@ class _DreamCollectionState extends State<DreamCollection> {
               ),
               Expanded(
                 child: Text(
-                  dreams[i],
+                  myDreams[i].summary ?? '',
                   style: Styles.uiMedium,
                   overflow: TextOverflow.fade,
                 ),
