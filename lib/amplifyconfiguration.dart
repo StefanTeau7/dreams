@@ -46,6 +46,12 @@ const amplifyconfig = ''' {
                         "Region": "us-west-1",
                         "AuthMode": "AWS_IAM",
                         "ClientDatabasePrefix": "dreamcatcher_AWS_IAM"
+                    },
+                    "dreamcatcher_AMAZON_COGNITO_USER_POOLS": {
+                        "ApiUrl": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
+                        "Region": "us-west-1",
+                        "AuthMode": "AMAZON_COGNITO_USER_POOLS",
+                        "ClientDatabasePrefix": "dreamcatcher_AMAZON_COGNITO_USER_POOLS"
                     }
                 },
                 "CredentialsProvider": {

@@ -188,6 +188,12 @@
           "AppSyncApiName": "dreamcatcher",
           "DynamoDBBillingMode": "PAY_PER_REQUEST",
           "DynamoDBEnableServerSideEncryption": false,
+          "AuthCognitoUserPoolId": {
+            "Fn::GetAtt": [
+              "authdreamcatcher",
+              "Outputs.UserPoolId"
+            ]
+          },
           "authRoleName": {
             "Ref": "AuthRoleName"
           },
@@ -195,7 +201,7 @@
             "Ref": "UnauthRoleName"
           },
           "S3DeploymentBucket": "amplify-dreamcatcher-dev-113350-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/a839369ddd6c1c8e59529d84111a6307a8028bab",
+          "S3DeploymentRootKey": "amplify-appsync-files/0c3cd6fe760b3c85c70c50693be183a6dcf403b8",
           "env": "dev"
         }
       }

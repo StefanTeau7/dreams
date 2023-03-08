@@ -8,15 +8,26 @@ class DreamService {
     return _dreamsById.values.toList();
   }
 
+// create chat
+//   final item = DreamChat(
+// 		text: "Lorem ipsum dolor sit amet",
+// 		dreamID: "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d");
+// await Amplify.DataStore.save(item);
+
+// delete
+//await Amplify.DataStore.delete(toDeleteItem);
+
+// query
+// final item = DreamChat(
+// 		text: "Lorem ipsum dolor sit amet",
+// 		dreamID: "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d");
+// await Amplify.DataStore.save(item);
+
   static Future<void> createDream(String subject, String summary) async {
     try {
-      final model = Dream(
-        subject: subject,
-        //   user: null,
-        id: null,
-      );
-
-      await Amplify.DataStore.save(model);
+      final item =
+          Dream(title: "Lorem ipsum dolor sit amet", userID: "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d", conversation: []);
+      await Amplify.DataStore.save(item);
       // final request = ModelMutations.create(model);
       // final response = await Amplify.API.mutate(request: request).response;
       // final createdDream = response.data;
@@ -31,9 +42,11 @@ class DreamService {
   }
 
   Future<void> updateDream(Dream originalDream) async {
-    final updatedModel = originalDream.copyWith(
-      subject: "Lorem ipsum dolor sit amet",
-    );
+    final item =
+        Dream(title: "Lorem ipsum dolor sit amet", userID: "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d", conversation: []);
+    final updatedItem = item.copyWith(
+        title: "Lorem ipsum dolor sit amet", userID: "a3f4095e-39de-43d2-baf4-f8c16f0f6f4d", conversation: []);
+    await Amplify.DataStore.save(updatedItem);
 
     // final request = ModelMutations.update(updatedModel);
     // final response = await Amplify.API.mutate(request: request).response;
@@ -42,16 +55,10 @@ class DreamService {
 
   static Future<List<Dream?>> queryListItems() async {
     try {
-      final items = await Amplify.DataStore.query(Dream.classType);
-      // final request = ModelQueries.list(Dream.classType);
-      // final response = await Amplify.API.query(request: request).response;
-      // final items = response.data?.items;
-
+      List<Dream> items = await Amplify.DataStore.query(Dream.classType);
       for (Dream dream in items) {
         _dreamsById[dream.id] = dream;
       }
-      print('Dreams: $items');
-      return items;
     } on ApiException catch (e) {
       print('Query failed: $e');
     }

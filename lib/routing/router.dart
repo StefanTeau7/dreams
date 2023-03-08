@@ -1,6 +1,5 @@
 import 'package:dream_catcher/main.dart';
 import 'package:dream_catcher/routing/dream_router.dart';
-import 'package:dream_catcher/screens/auth/auth_controller.dart';
 import 'package:dream_catcher/screens/home.dart/home.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/utils/utils.dart';
@@ -43,16 +42,7 @@ class DreamRouterDelegate extends RouterDelegate<DreameRoute>
   Widget build(BuildContext context) {
     List<Page> pages = [];
     switch (_route.primaryScreen) {
-      // case PathElement.SIGNIN:
-      // case PathElement.SIGNUP:
-      //   pages.add(pageSizeWrapper(key: 'Signin', child: AuthBase(params: _route.params)));
-      //   break;
-      // case PathElement.NO_CONNECTION:
-      //   Utils.log('dreamRouterDelegate showing no connection');
-      //   pages.add(pageSizeWrapper(key: 'CantConnect', child: const CantConnectScreen()));
-      //   break;
       default:
-        //  if (authStatus == AuthStatus.authorized) {
         Utils.log('dreamRouterDelegate authorized with $_route');
         pages.add(MaterialPage(
           key: const ValueKey('home'),
@@ -62,11 +52,6 @@ class DreamRouterDelegate extends RouterDelegate<DreameRoute>
             child: const Home(),
           ),
         ));
-      // } else {
-      //   // initialized but no user, so push signin
-      //   Utils.log('dreamRouterDelegate NOT authorized with $_route');
-      //   pages.add(pageSizeWrapper(key: 'Signin', child: const AuthBase()));
-      // }
     }
     return Container(
       color: Styles.lightBg,
@@ -101,14 +86,13 @@ class DreamRouterDelegate extends RouterDelegate<DreameRoute>
     Utils.log('dreamRouterDelegate setNewRoutePath() called with new $configuration and old $_route');
     // Added the following to resolve https://app.asana.com/0/1140552801186289/1203235504433551/f
     // If pushing a signin/signup route, but already authenticated, don't push the sign in route.
-    if ((configuration?.primaryScreen == PathElement.SIGNIN || configuration?.primaryScreen == PathElement.SIGNUP) &&
-        authStatus == AuthStatus.authorized) {
-      if (configuration?.params['r'] != null) {
-        configuration = DreameRoute.fromString(configuration!.params['r']);
-      } else {
-        return;
-      }
+
+    if (configuration?.params['r'] != null) {
+      configuration = DreameRoute.fromString(configuration!.params['r']);
+    } else {
+      return;
     }
+
     if (configuration == null) return;
     if (_previousRoute != _route) _previousRoute = _route;
     _route = configuration;

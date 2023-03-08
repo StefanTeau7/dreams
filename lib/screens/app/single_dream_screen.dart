@@ -1,3 +1,4 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/models/chat.dart';
 import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
@@ -11,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SingleDreamScreen extends StatefulWidget {
-  ChatId? chatId;
-  SingleDreamScreen({super.key, this.chatId});
+  String? dreamId;
+  SingleDreamScreen({super.key, this.dreamId});
 
   @override
   State<SingleDreamScreen> createState() => _SingleDreamScreenState();
@@ -21,18 +22,21 @@ class SingleDreamScreen extends StatefulWidget {
 class _SingleDreamScreenState extends State<SingleDreamScreen> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
+  String? dreamId;
 
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
+    dreamId = widget.dreamId;
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer2<ChatService, ModelService>(
       builder: (context, chatService, modelService, child) {
+        // Get Dream getDreamById();
         return Material(
           child: MaterialApp(
             home: Scaffold(
@@ -75,15 +79,15 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
                           //        DreamService.createDream();
-                          //   sendMessage(modelService, chatService);
+                          sendMessage(modelService, chatService);
                         },
                       ),
                       // result
-                      widget.chatId != null
+                      dreamId != null
                           ? Flexible(
                               child: ListView.builder(
                                   // controller: _listScrollController,
-                                  itemCount: chatService.getChatListById(widget.chatId)?.length,
+                                  itemCount: chatService.getChatListById(dreamId)?.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.all(10.0),
@@ -91,7 +95,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                         width: 600,
                                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                           Text(
-                                            chatService.getChatListById(widget.chatId)![index].text,
+                                            chatService.getChatListById(dreamId)![index].text ?? '',
                                             style: Styles.uiSemiBoldMedium,
                                             textAlign: TextAlign.start,
                                           ),
@@ -99,7 +103,13 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                       ),
                                     );
                                   }))
-                          : Container()
+                          : Container(),
+                      SimpleButton(
+                        label: "Logout",
+                        onPressed: () {
+                          Amplify.Auth.signOut();
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -113,12 +123,14 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
 
   Future<void> sendMessage(ModelService modelService, ChatService chatService) async {
     setState(() {
-      chatService.addUserMessage(id: widget.chatId, text: _textEditingController.text);
+      chatService.addUserMessage(dreamID: dreamId!, text: _textEditingController.text);
     });
 
-    List<Chat>? list = chatService.getChatListById(widget.chatId);
+    List<Chat>? list = chatService.getChatListById(widget.dreamId);
+
     if (list != null) {
       await ApiService.sendMessage(
+        dreamId: widget.dreamId!,
         list: list,
       );
     }

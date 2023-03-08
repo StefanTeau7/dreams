@@ -1,21 +1,29 @@
-type Dream {
-  id: ID
-  subject: String
-  user: User
+enum ChatRoleType {
+  ASSISTANT
+  USER
+  SYSTEM
 }
 
-type User {
-  id: ID
+type User @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
   first: String
-  last: String
-  phone: String
   email: String
-  password: String
+  phone: String
+  mind: [Dream] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
-type Chat @model @auth(rules: [{allow: public}]) {
+type Dream @model @auth(rules: [{allow: public}, {allow: owner}]) {
+  id: ID!
+  title: String
+  userID: ID! @index(name: "byUser")
+  conversation: [Chat] @hasMany(indexName: "byDream", fields: ["id"])
+}
+
+type Chat @model @auth(rules: [{allow: public}, {allow: owner}]) {
   id: ID!
   text: String
-  dream: Dream
+  dreamID: ID! @index(name: "byDream")
+  chatIndex: Int
+  role: ChatRoleType
 }
  

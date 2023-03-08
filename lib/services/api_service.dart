@@ -4,7 +4,10 @@ import 'dart:io';
 
 import 'package:dream_catcher/main.dart';
 import 'package:dream_catcher/models/chat.dart';
+import 'package:dream_catcher/models/chatRoleType.dart';
 import 'package:dream_catcher/models/models.dart';
+import 'package:dream_catcher/services/chat_service.dart';
+import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,7 +39,7 @@ class ApiService {
   }
 
   // Send Message fct
-  static Future<List<Chat>> sendMessage({required List<Chat> list}) async {
+  static Future<List<Chat>> sendMessage({required String dreamId, required List<Chat> list}) async {
     try {
       var chatJson = {"model": AI_MODEL_ID};
       var messages = [];
@@ -51,12 +54,11 @@ class ApiService {
         final chat = {"role": c.role, "content": c.text};
         messages.add(chat);
       }
-      chatJson["messages"] = messages.toString();
+      chatJson["messages"] = messages.toString(); 
 
       String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;
       String apiKey = dotenv.env['API_KEY']!;
-      return [];
       var response = await http.post(
         Uri.parse("$baseUrl/chat/completions"),
         headers: {'Authorization': 'Bearer $apiKey', "Content-Type": "application/json"},
@@ -75,12 +77,14 @@ class ApiService {
         chatList = List.generate(
           jsonResponse["choices"].length,
           (index) => Chat(
+            dreamID: dreamId,
             role: ChatRoleType.ASSISTANT,
             text: jsonResponse["choices"][index]["message"]["content"],
-            chatIndex: list.last.chatIndex + 1,
+            chatIndex: list.last.chatIndex! + 1,
           ),
         );
       }
+      getIt<ChatService>().addAssistantMessage(dreamID: dreamId, text: chatList.last.text!);
       return chatList;
     } catch (error) {
       log("error $error");

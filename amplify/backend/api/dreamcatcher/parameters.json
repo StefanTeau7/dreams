@@ -2,5 +2,11 @@
   "AppSyncApiName": "dreamcatcher",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-03-02T05:11:47.300Z"
+  "AuthModeLastUpdated": "2023-03-07T07:02:35.717Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authdreamcatcher",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

@@ -21,7 +21,7 @@
         "Region": "us-west-2",
         "Id": "891bebd8446747b0acca80299c7b2dbd"
       },
-      "lastPushTimeStamp": "2023-03-03T16:32:15.460Z",
+      "lastPushTimeStamp": "2023-03-07T17:29:08.553Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
         "logicalId": "analyticsdreamcatcher"
@@ -30,12 +30,26 @@
   },
   "api": {
     "dreamcatcher": {
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "dreamcatcher"
+        }
+      ],
       "output": {
         "authConfig": {
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authdreamcatcher"
+              }
             }
           ],
           "defaultAuthentication": {
@@ -52,12 +66,12 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync",
-      "lastPushTimeStamp": "2023-03-03T16:32:15.523Z",
+      "lastPushTimeStamp": "2023-03-07T17:29:08.615Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apidreamcatcher"
       },
-      "lastPushDirHash": "oeE67rNG2RWU3pkBvav1roqZkRk="
+      "lastPushDirHash": "89cjF4FNLQo5jquuoqHGPIfDevA="
     }
   },
   "auth": {
@@ -99,7 +113,7 @@
         "IdentityPoolName": "testAuthIdentityPool__dev",
         "UserPoolName": "dreamcatcher"
       },
-      "lastPushTimeStamp": "2023-03-03T16:32:15.465Z",
+      "lastPushTimeStamp": "2023-03-07T17:29:08.557Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/auth/dreamcatcher-cloudformation-template.json",
         "logicalId": "authdreamcatcher"
@@ -115,7 +129,7 @@
         "BucketName": "dreamcatcher-storage-e009c136113350-dev",
         "Region": "us-west-1"
       },
-      "lastPushTimeStamp": "2023-03-03T16:32:15.468Z",
+      "lastPushTimeStamp": "2023-03-07T17:29:08.560Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-dreamcatcher-dev-113350-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
         "logicalId": "storages3dreamcatcherstoragee009c136"

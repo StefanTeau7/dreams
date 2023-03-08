@@ -25,14 +25,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Dream type in your schema. */
+/** This is an auto generated class representing the User type in your schema. */
 @immutable
-class Dream extends Model {
-  static const classType = const _DreamModelType();
+class User extends Model {
+  static const classType = const _UserModelType();
   final String id;
-  final String? _title;
-  final String? _userID;
-  final List<Chat>? _conversation;
+  final String? _first;
+  final String? _email;
+  final String? _phone;
+  final List<Dream>? _mind;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -43,31 +44,26 @@ class Dream extends Model {
   @override
   String getId() => id;
   
-  DreamModelIdentifier get modelIdentifier {
-      return DreamModelIdentifier(
+  UserModelIdentifier get modelIdentifier {
+      return UserModelIdentifier(
         id: id
       );
   }
   
-  String? get title {
-    return _title;
+  String? get first {
+    return _first;
   }
   
-  String get userID {
-    try {
-      return _userID!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get email {
+    return _email;
   }
   
-  List<Chat>? get conversation {
-    return _conversation;
+  String? get phone {
+    return _phone;
+  }
+  
+  List<Dream>? get mind {
+    return _mind;
   }
   
   TemporalDateTime? get createdAt {
@@ -78,14 +74,15 @@ class Dream extends Model {
     return _updatedAt;
   }
   
-  const Dream._internal({required this.id, title, required userID, conversation, createdAt, updatedAt}): _title = title, _userID = userID, _conversation = conversation, _createdAt = createdAt, _updatedAt = updatedAt;
+  const User._internal({required this.id, first, email, phone, mind, createdAt, updatedAt}): _first = first, _email = email, _phone = phone, _mind = mind, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Dream({String? id, String? title, required String userID, List<Chat>? conversation}) {
-    return Dream._internal(
+  factory User({String? id, String? first, String? email, String? phone, List<Dream>? mind}) {
+    return User._internal(
       id: id == null ? UUID.getUUID() : id,
-      title: title,
-      userID: userID,
-      conversation: conversation != null ? List<Chat>.unmodifiable(conversation) : conversation);
+      first: first,
+      email: email,
+      phone: phone,
+      mind: mind != null ? List<Dream>.unmodifiable(mind) : mind);
   }
   
   bool equals(Object other) {
@@ -95,11 +92,12 @@ class Dream extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Dream &&
+    return other is User &&
       id == other.id &&
-      _title == other._title &&
-      _userID == other._userID &&
-      DeepCollectionEquality().equals(_conversation, other._conversation);
+      _first == other._first &&
+      _email == other._email &&
+      _phone == other._phone &&
+      DeepCollectionEquality().equals(_mind, other._mind);
   }
   
   @override
@@ -109,10 +107,11 @@ class Dream extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Dream {");
+    buffer.write("User {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("userID=" + "$_userID" + ", ");
+    buffer.write("first=" + "$_first" + ", ");
+    buffer.write("email=" + "$_email" + ", ");
+    buffer.write("phone=" + "$_phone" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -120,45 +119,48 @@ class Dream extends Model {
     return buffer.toString();
   }
   
-  Dream copyWith({String? title, String? userID, List<Chat>? conversation}) {
-    return Dream._internal(
+  User copyWith({String? first, String? email, String? phone, List<Dream>? mind}) {
+    return User._internal(
       id: id,
-      title: title ?? this.title,
-      userID: userID ?? this.userID,
-      conversation: conversation ?? this.conversation);
+      first: first ?? this.first,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      mind: mind ?? this.mind);
   }
   
-  Dream.fromJson(Map<String, dynamic> json)  
+  User.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _title = json['title'],
-      _userID = json['userID'],
-      _conversation = json['conversation'] is List
-        ? (json['conversation'] as List)
+      _first = json['first'],
+      _email = json['email'],
+      _phone = json['phone'],
+      _mind = json['mind'] is List
+        ? (json['mind'] as List)
           .where((e) => e?['serializedData'] != null)
-          .map((e) => Chat.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .map((e) => Dream.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'userID': _userID, 'conversation': _conversation?.map((Chat? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind?.map((Dream? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'title': _title, 'userID': _userID, 'conversation': _conversation, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
-  static final QueryModelIdentifier<DreamModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<DreamModelIdentifier>();
+  static final QueryModelIdentifier<UserModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<UserModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField USERID = QueryField(fieldName: "userID");
-  static final QueryField CONVERSATION = QueryField(
-    fieldName: "conversation",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Chat'));
+  static final QueryField FIRST = QueryField(fieldName: "first");
+  static final QueryField EMAIL = QueryField(fieldName: "email");
+  static final QueryField PHONE = QueryField(fieldName: "phone");
+  static final QueryField MIND = QueryField(
+    fieldName: "mind",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Dream'));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Dream";
-    modelSchemaDefinition.pluralName = "Dreams";
+    modelSchemaDefinition.name = "User";
+    modelSchemaDefinition.pluralName = "Users";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -182,29 +184,31 @@ class Dream extends Model {
         ])
     ];
     
-    modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["userID"], name: "byUser")
-    ];
-    
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Dream.TITLE,
+      key: User.FIRST,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Dream.USERID,
-      isRequired: true,
+      key: User.EMAIL,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: User.PHONE,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Dream.CONVERSATION,
+      key: User.MIND,
       isRequired: false,
-      ofModelName: 'Chat',
-      associatedKey: Chat.DREAMID
+      ofModelName: 'Dream',
+      associatedKey: Dream.USERID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -223,30 +227,30 @@ class Dream extends Model {
   });
 }
 
-class _DreamModelType extends ModelType<Dream> {
-  const _DreamModelType();
+class _UserModelType extends ModelType<User> {
+  const _UserModelType();
   
   @override
-  Dream fromJson(Map<String, dynamic> jsonData) {
-    return Dream.fromJson(jsonData);
+  User fromJson(Map<String, dynamic> jsonData) {
+    return User.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Dream';
+    return 'User';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Dream] in your schema.
+ * of [User] in your schema.
  */
 @immutable
-class DreamModelIdentifier implements ModelIdentifier<Dream> {
+class UserModelIdentifier implements ModelIdentifier<User> {
   final String id;
 
-  /** Create an instance of DreamModelIdentifier using [id] the primary key. */
-  const DreamModelIdentifier({
+  /** Create an instance of UserModelIdentifier using [id] the primary key. */
+  const UserModelIdentifier({
     required this.id});
   
   @override
@@ -264,7 +268,7 @@ class DreamModelIdentifier implements ModelIdentifier<Dream> {
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'DreamModelIdentifier(id: $id)';
+  String toString() => 'UserModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -272,7 +276,7 @@ class DreamModelIdentifier implements ModelIdentifier<Dream> {
       return true;
     }
     
-    return other is DreamModelIdentifier &&
+    return other is UserModelIdentifier &&
       id == other.id;
   }
   
