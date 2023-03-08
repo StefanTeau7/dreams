@@ -1,8 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:dream_catcher/models/chat.dart';
-import 'package:dream_catcher/services/api_service.dart';
-import 'package:dream_catcher/services/chat_service.dart';
-import 'package:dream_catcher/services/model_service.dart';
+import 'package:dream_catcher/services/central_service.dart';
+import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:dream_catcher/widgets/labeled_text_field.dart';
@@ -23,20 +21,24 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   late TextEditingController _textEditingController;
   late FocusNode _focusNode;
   String? dreamId;
+  CentralService _centralService = getIt<CentralService>();
 
   @override
   void initState() {
     super.initState();
     _textEditingController = TextEditingController();
     _focusNode = FocusNode();
-    dreamId = widget.dreamId;
+    if (widget.dreamId != null) {
+      _centralService.currentDreamId = widget.dreamId!;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<ChatService, ModelService>(
-      builder: (context, chatService, modelService, child) {
+    return Consumer<CentralService>(
+      builder: (context, centralService, child) {
         // Get Dream getDreamById();
+        dreamId = centralService.currentDreamId;
         return Material(
           child: MaterialApp(
             home: Scaffold(
@@ -78,8 +80,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         label: "Analyze",
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
-                          //        DreamService.createDream();
-                          sendMessage(modelService, chatService);
+                          sendMessage(centralService);
                         },
                       ),
                       // result
@@ -87,7 +88,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                           ? Flexible(
                               child: ListView.builder(
                                   // controller: _listScrollController,
-                                  itemCount: chatService.getChatListById(dreamId)?.length,
+                                  itemCount: centralService.getChatListById(dreamId)?.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.all(10.0),
@@ -95,7 +96,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                         width: 600,
                                         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                           Text(
-                                            chatService.getChatListById(dreamId)![index].text ?? '',
+                                            centralService.getChatListById(dreamId)![index].text ?? '',
                                             style: Styles.uiSemiBoldMedium,
                                             textAlign: TextAlign.start,
                                           ),
@@ -109,7 +110,9 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         onPressed: () {
                           Amplify.Auth.signOut();
                         },
-                      )
+                      ),
+                      // clear data button
+                      SimpleButton(label: "",)
                     ],
                   ),
                 ),
@@ -120,20 +123,13 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       },
     );
   }
+  // function to send message with string "123" added at end
+  
+  // function to find prime 
 
-  Future<void> sendMessage(ModelService modelService, ChatService chatService) async {
-    setState(() {
-      chatService.addUserMessage(dreamID: dreamId!, text: _textEditingController.text);
-    });
 
-    List<Chat>? list = chatService.getChatListById(widget.dreamId);
-
-    if (list != null) {
-      await ApiService.sendMessage(
-        dreamId: widget.dreamId!,
-        list: list,
-      );
-    }
+  Future<void> sendMessage(CentralService centralService) async {
+    await centralService.handleMessageSend(_textEditingController.text);
 
     setState(() {
       _textEditingController.clear();

@@ -1,5 +1,5 @@
 import 'package:dream_catcher/routing/router.dart';
-import 'package:dream_catcher/services/chat_service.dart';
+import 'package:dream_catcher/services/central_service.dart';
 import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:dream_catcher/services/model_service.dart';
 import 'package:dream_catcher/styles/theme.dart';
@@ -26,7 +26,8 @@ class _MainAppState extends State<MainApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
-        ChangeNotifierProvider<ChatService>(create: (context) => getIt<ChatService>()),
+        ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
+        ChangeNotifierProvider<CentralService>(create: (context) => getIt<CentralService>()),
       ],
       child: Portal(
         child: GestureDetector(

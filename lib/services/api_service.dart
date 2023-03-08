@@ -6,7 +6,6 @@ import 'package:dream_catcher/main.dart';
 import 'package:dream_catcher/models/chat.dart';
 import 'package:dream_catcher/models/chatRoleType.dart';
 import 'package:dream_catcher/models/models.dart';
-import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -84,7 +83,6 @@ class ApiService {
           ),
         );
       }
-      getIt<ChatService>().addAssistantMessage(dreamID: dreamId, text: chatList.last.text!);
       return chatList;
     } catch (error) {
       log("error $error");
