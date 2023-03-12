@@ -40,6 +40,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   void initState() {
     super.initState();
     currentDreamId = widget.dreamId;
+    _chatService.fetchDreamChats(currentDreamId);
     _textEditingController = TextEditingController();
     _titleEditingController = TextEditingController();
     _focusNode = FocusNode();
@@ -123,6 +124,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                     return Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: DreamCard(
+                                        color: Styles.wine,
                                         width: 600,
                                         child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                           Text(
@@ -182,7 +184,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       }
       _chatService.createChat(
         dreamId!,
-        _titleEditingController.text,
+        _textEditingController.text,
         ChatRoleType.USER,
       );
     });

@@ -15,8 +15,9 @@ class ChatService extends ChangeNotifier {
     return _chatsByDreamId[id];
   }
 
-  Future<List<Chat?>> fetchDreamChats(String dreamId) async {
+  Future<List<Chat?>?> fetchDreamChats(String? dreamId) async {
     try {
+      if (dreamId == null) return null;
       final request = ModelQueries.list(Chat.classType, where: Chat.DREAMID.eq(dreamId));
       final response = await Amplify.API.query(request: request).response;
       final chats = response.data?.items ?? <Chat?>[];
@@ -29,18 +30,20 @@ class ChatService extends ChangeNotifier {
           _chatsByDreamId[dreamId]!.add(chat);
         }
       }
+      notifyListeners();
     } on ApiException catch (e) {
       print('Query failed: $e');
     }
     return <Chat?>[];
   }
 
-  Future<String?> createChat(String dreamId, String title, ChatRoleType role) async {
+  Future<String?> createChat(String dreamId, String text, ChatRoleType role) async {
     try {
       List<Chat>? list = getChatListById(dreamId);
       int chatIndex = 0;
       if (list != null && list.isNotEmpty) {
-        chatIndex = list.last.chatIndex ?? 0 + 1;
+        chatIndex = list.last.chatIndex ?? 0;
+        chatIndex++;
       }
       String? userId = await _userService.retrieveCurrentUserId();
 
@@ -48,7 +51,7 @@ class ChatService extends ChangeNotifier {
         safePrint('User ID is null');
         return null;
       }
-      final chat = Chat(dreamID: dreamId, text: title, role: role, userID: userId, chatIndex: chatIndex);
+      final chat = Chat(dreamID: dreamId, text: text, role: role, userID: userId, chatIndex: chatIndex);
       final request = ModelMutations.create(chat);
       final response = await Amplify.API.mutate(request: request).response;
 

@@ -190,7 +190,7 @@ class Styles {
   static const uiSemiBoldMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: wine,
+    color: white,
     fontWeight: FontWeight.w600,
   );
   static const uiSemiBoldSmall = TextStyle(
