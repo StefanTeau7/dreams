@@ -1,15 +1,14 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
-import 'package:dream_catcher/models/chat.dart';
-import 'package:dream_catcher/models/chatRoleType.dart';
-import 'package:dream_catcher/services/api_service.dart';
+import 'package:dream_catcher/models/Chat.dart';
+import 'package:dream_catcher/models/ChatRoleType.dart';
 import 'package:dream_catcher/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 class ChatService extends ChangeNotifier {
   final UserService _userService = getIt<UserService>();
-  Map<String, List<Chat>> _chatsByDreamId = {};
+  final Map<String, List<Chat>> _chatsByDreamId = {};
 
   List<Chat>? getChatListById(String? id) {
     if (id == null) return null;
@@ -43,8 +42,13 @@ class ChatService extends ChangeNotifier {
       if (list != null && list.isNotEmpty) {
         chatIndex = list.last.chatIndex ?? 0 + 1;
       }
+      String? userId = await _userService.retrieveCurrentUserId();
 
-      final chat = Chat(dreamID: dreamId, text: title, role: role,userID: _userService.userId, chatIndex: chatIndex);
+      if (userId == null) {
+        safePrint('User ID is null');
+        return null;
+      }
+      final chat = Chat(dreamID: dreamId, text: title, role: role, userID: userId, chatIndex: chatIndex);
       final request = ModelMutations.create(chat);
       final response = await Amplify.API.mutate(request: request).response;
 
@@ -64,12 +68,9 @@ class ChatService extends ChangeNotifier {
     }
   }
 
-
   void placeChatInLists(String dreamID, Chat chat) {
     List<Chat> list = getChatListById(dreamID) ?? [];
     list.add(chat);
     _chatsByDreamId[dreamID] = list;
   }
-
-
 }

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
-import 'package:dream_catcher/models/chat.dart';
-import 'package:dream_catcher/models/chatRoleType.dart';
+import 'package:dream_catcher/models/Chat.dart';
+import 'package:dream_catcher/models/ChatRoleType.dart';
 import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dream_service.dart';
@@ -89,7 +89,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                           )),
                       SizedBox(
                           width: 400,
-                          height: 50,
                           child: LabeledTextField(
                             color: Styles.yellow,
                             focusNode: _titleFocusNode,

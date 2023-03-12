@@ -1,7 +1,7 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
-import 'package:dream_catcher/models/modelProvider.dart';
+import 'package:dream_catcher/models/ModelProvider.dart';
 import 'package:dream_catcher/services/user_service.dart';
 import 'package:flutter/material.dart';
 
@@ -52,9 +52,14 @@ class DreamService extends ChangeNotifier {
 
   Future<String?> createDream(String title) async {
     try {
+      String? userId = await _userService.retrieveCurrentUserId();
+      if (userId == null) {
+        safePrint('User ID is null');
+        return null;
+      }
       final dream = Dream(
         title: title,
-        userID: _userService.userId,
+        userID: userId,
       );
       final request = ModelMutations.create(dream);
       final response = await Amplify.API.mutate(request: request).response;
@@ -76,10 +81,16 @@ class DreamService extends ChangeNotifier {
 
   Future<bool> updateDream(String dreamId, String title) async {
     try {
+      String? userId = await _userService.retrieveCurrentUserId();
+      if (userId == null) {
+        safePrint('User ID is null');
+        return false;
+      }
+
       final dream = Dream(
         id: dreamId,
         title: title,
-        userID: _userService.userId,
+        userID: userId,
       );
       final request = ModelMutations.update(dream);
       final response = await Amplify.API.mutate(request: request).response;

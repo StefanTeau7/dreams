@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dream_catcher/main.dart';
-import 'package:dream_catcher/models/chat.dart';
+import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/models.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;

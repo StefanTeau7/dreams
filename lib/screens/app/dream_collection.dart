@@ -1,5 +1,5 @@
 import 'package:dream_catcher/di/dependency_injection.dart';
-import 'package:dream_catcher/models/dream.dart';
+import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
