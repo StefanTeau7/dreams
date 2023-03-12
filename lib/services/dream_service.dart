@@ -27,6 +27,7 @@ class DreamService extends ChangeNotifier {
         if (dream == null) continue;
         _dreamsById[dream.id] = dream;
       }
+      notifyListeners();
     } on ApiException catch (e) {
       print('Query failed: $e');
     }

@@ -1,4 +1,3 @@
-import 'package:dream_catcher/di/dependency_injection.dart';
 import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
 import 'package:dream_catcher/services/dream_service.dart';
@@ -15,8 +14,6 @@ class DreamCollection extends StatefulWidget {
 }
 
 class _DreamCollectionState extends State<DreamCollection> {
-  final DreamService dreamService = getIt<DreamService>();
-
   @override
   Widget build(BuildContext context) {
     return Consumer<DreamService>(
