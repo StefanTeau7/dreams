@@ -10,6 +10,7 @@ type User @model @auth(rules: [{allow: public}, {allow: owner}]) {
   email: String
   phone: String
   mind: [Dream] @hasMany(indexName: "byUser", fields: ["id"])
+  thoughts: [Chat] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Dream @model @auth(rules: [{allow: public}, {allow: owner}]) {
@@ -25,5 +26,6 @@ type Chat @model @auth(rules: [{allow: public}, {allow: owner}]) {
   dreamID: ID! @index(name: "byDream")
   chatIndex: Int
   role: ChatRoleType
+  userID: ID! @index(name: "byUser")
 }
  

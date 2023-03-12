@@ -4,9 +4,7 @@ import 'dart:io';
 
 import 'package:dream_catcher/main.dart';
 import 'package:dream_catcher/models/chat.dart';
-import 'package:dream_catcher/models/chatRoleType.dart';
 import 'package:dream_catcher/models/models.dart';
-import 'package:dream_catcher/services/dependency_injection.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
@@ -38,7 +36,7 @@ class ApiService {
   }
 
   // Send Message fct
-  static Future<List<Chat>> sendMessage({required String dreamId, required List<Chat> list}) async {
+  static Future<String?> sendMessage({required List<Chat> list}) async {
     try {
       var chatJson = {"model": AI_MODEL_ID};
       var messages = [];
@@ -53,7 +51,7 @@ class ApiService {
         final chat = {"role": c.role, "content": c.text};
         messages.add(chat);
       }
-      chatJson["messages"] = messages.toString(); 
+      chatJson["messages"] = messages.toString();
 
       String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;
@@ -67,23 +65,10 @@ class ApiService {
       Map jsonResponse = jsonDecode(response.body);
 
       if (jsonResponse['error'] != null) {
-        // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
-      List<Chat> chatList = [];
-      if (jsonResponse["choices"].length > 0) {
-        // log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
-        chatList = List.generate(
-          jsonResponse["choices"].length,
-          (index) => Chat(
-            dreamID: dreamId,
-            role: ChatRoleType.ASSISTANT,
-            text: jsonResponse["choices"][index]["message"]["content"],
-            chatIndex: list.last.chatIndex! + 1,
-          ),
-        );
-      }
-      return chatList;
+      int lastIndex = jsonResponse["choices"].length - 1;
+      return jsonResponse["choices"][lastIndex]["message"]["content"];
     } catch (error) {
       log("error $error");
       rethrow;

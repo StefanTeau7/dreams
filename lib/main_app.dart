@@ -1,7 +1,8 @@
+import 'package:dream_catcher/di/dependency_injection.dart';
 import 'package:dream_catcher/routing/router.dart';
-import 'package:dream_catcher/services/central_service.dart';
-import 'package:dream_catcher/services/dependency_injection.dart';
+import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/services/model_service.dart';
+import 'package:dream_catcher/services/user_service.dart';
 import 'package:dream_catcher/styles/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
@@ -26,8 +27,8 @@ class _MainAppState extends State<MainApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
-        ChangeNotifierProvider<ModelService>(create: (context) => getIt<ModelService>()),
-        ChangeNotifierProvider<CentralService>(create: (context) => getIt<CentralService>()),
+        ChangeNotifierProvider<DreamService>(create: (context) => getIt<DreamService>()),
+        ChangeNotifierProvider<UserService>(create: (context) => getIt<UserService>()),
       ],
       child: Portal(
         child: GestureDetector(

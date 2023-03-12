@@ -32,6 +32,7 @@ class Chat extends Model {
   final String? _dreamID;
   final int? _chatIndex;
   final ChatRoleType? _role;
+  final String? _userID;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -69,6 +70,16 @@ class Chat extends Model {
     return _role;
   }
 
+  String get userID {
+    try {
+      return _userID!;
+    } catch (e) {
+      throw new AmplifyCodeGenModelException(AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -77,17 +88,25 @@ class Chat extends Model {
     return _updatedAt;
   }
 
-  const Chat._internal({required this.id, text, required dreamID, chatIndex, role, createdAt, updatedAt})
+  const Chat._internal(
+      {required this.id, text, required dreamID, chatIndex, role, required userID, createdAt, updatedAt})
       : _text = text,
         _dreamID = dreamID,
         _chatIndex = chatIndex,
         _role = role,
+        _userID = userID,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Chat({String? id, String? text, required String dreamID, int? chatIndex, required ChatRoleType role}) {
+  factory Chat(
+      {String? id, String? text, required String dreamID, int? chatIndex, ChatRoleType? role, required String userID}) {
     return Chat._internal(
-        id: id == null ? UUID.getUUID() : id, text: text, dreamID: dreamID, chatIndex: chatIndex, role: role);
+        id: id == null ? UUID.getUUID() : id,
+        text: text,
+        dreamID: dreamID,
+        chatIndex: chatIndex,
+        role: role,
+        userID: userID);
   }
 
   bool equals(Object other) {
@@ -102,7 +121,8 @@ class Chat extends Model {
         _text == other._text &&
         _dreamID == other._dreamID &&
         _chatIndex == other._chatIndex &&
-        _role == other._role;
+        _role == other._role &&
+        _userID == other._userID;
   }
 
   @override
@@ -118,6 +138,7 @@ class Chat extends Model {
     buffer.write("dreamID=" + "$_dreamID" + ", ");
     buffer.write("chatIndex=" + (_chatIndex != null ? _chatIndex!.toString() : "null") + ", ");
     buffer.write("role=" + (_role != null ? enumToString(_role)! : "null") + ", ");
+    buffer.write("userID=" + "$_userID" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -125,13 +146,14 @@ class Chat extends Model {
     return buffer.toString();
   }
 
-  Chat copyWith({String? text, String? dreamID, int? chatIndex, ChatRoleType? role}) {
+  Chat copyWith({String? text, String? dreamID, int? chatIndex, ChatRoleType? role, String? userID}) {
     return Chat._internal(
         id: id,
         text: text ?? this.text,
         dreamID: dreamID ?? this.dreamID,
         chatIndex: chatIndex ?? this.chatIndex,
-        role: role ?? this.role);
+        role: role ?? this.role,
+        userID: userID ?? this.userID);
   }
 
   Chat.fromJson(Map<String, dynamic> json)
@@ -140,6 +162,7 @@ class Chat extends Model {
         _dreamID = json['dreamID'],
         _chatIndex = (json['chatIndex'] as num?)?.toInt(),
         _role = enumFromString<ChatRoleType>(json['role'], ChatRoleType.values),
+        _userID = json['userID'],
         _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
         _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
 
@@ -149,6 +172,7 @@ class Chat extends Model {
         'dreamID': _dreamID,
         'chatIndex': _chatIndex,
         'role': enumToString(_role),
+        'userID': _userID,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -159,6 +183,7 @@ class Chat extends Model {
         'dreamID': _dreamID,
         'chatIndex': _chatIndex,
         'role': _role,
+        'userID': _userID,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -169,6 +194,7 @@ class Chat extends Model {
   static final QueryField DREAMID = QueryField(fieldName: "dreamID");
   static final QueryField CHATINDEX = QueryField(fieldName: "chatIndex");
   static final QueryField ROLE = QueryField(fieldName: "role");
+  static final QueryField USERID = QueryField(fieldName: "userID");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Chat";
     modelSchemaDefinition.pluralName = "Chats";
@@ -186,7 +212,8 @@ class Chat extends Model {
     ];
 
     modelSchemaDefinition.indexes = [
-      ModelIndex(fields: const ["dreamID"], name: "byDream")
+      ModelIndex(fields: const ["dreamID"], name: "byDream"),
+      ModelIndex(fields: const ["userID"], name: "byUser")
     ];
 
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
@@ -202,6 +229,9 @@ class Chat extends Model {
 
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
         key: Chat.ROLE, isRequired: false, ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)));
+
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+        key: Chat.USERID, isRequired: true, ofType: ModelFieldType(ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
         fieldName: 'createdAt',

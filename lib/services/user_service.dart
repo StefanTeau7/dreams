@@ -1,24 +1,20 @@
-class UserService {
-  // ADD
-//   final item = User(
-// 		first: "Lorem ipsum dolor sit amet",
-// 		email: "Lorem ipsum dolor sit amet",
-// 		phone: "Lorem ipsum dolor sit amet",
-// 		Subconscious: []);
-// await Amplify.DataStore.save(item);
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/material.dart';
 
-//UPDATE
-// final item = User(
-// 		first: "Lorem ipsum dolor sit amet",
-// 		email: "Lorem ipsum dolor sit amet",
-// 		phone: "Lorem ipsum dolor sit amet",
-// 		Subconscious: []);
-// await Amplify.DataStore.save(item);
+class UserService extends ChangeNotifier {
+  late AuthUser _user;
 
-// QUERY
-// try {
-//   List<User> Users = await Amplify.DataStore.query(User.classType);
-// } catch (e) {
-//   print("Could not query DataStore: " + e);
-// }
+  AuthUser get user {
+    return _user;
+  }
+
+  String get userId {
+    return _user.userId;
+  }
+
+  Future<AuthUser> retrieveCurrentUser() async {
+    AuthUser authUser = await Amplify.Auth.getCurrentUser();
+    _user = authUser;
+    return authUser;
+  }
 }

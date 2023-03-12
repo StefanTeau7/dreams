@@ -1,6 +1,12 @@
+import 'dart:async';
+
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:dream_catcher/services/central_service.dart';
-import 'package:dream_catcher/services/dependency_injection.dart';
+import 'package:dream_catcher/di/dependency_injection.dart';
+import 'package:dream_catcher/models/chat.dart';
+import 'package:dream_catcher/models/chatRoleType.dart';
+import 'package:dream_catcher/services/api_service.dart';
+import 'package:dream_catcher/services/chat_service.dart';
+import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:dream_catcher/widgets/labeled_text_field.dart';
@@ -18,27 +24,45 @@ class SingleDreamScreen extends StatefulWidget {
 }
 
 class _SingleDreamScreenState extends State<SingleDreamScreen> {
+  late TextEditingController _titleEditingController;
   late TextEditingController _textEditingController;
+
   late FocusNode _focusNode;
-  String? dreamId;
-  CentralService _centralService = getIt<CentralService>();
+  late FocusNode _titleFocusNode;
+  Timer? _debounce;
+  Timer? _chatDebounce;
+
+  String? currentDreamId;
+  final DreamService _dreamService = getIt<DreamService>();
+  final ChatService _chatService = getIt<ChatService>();
 
   @override
   void initState() {
     super.initState();
+    currentDreamId = widget.dreamId;
     _textEditingController = TextEditingController();
+    _titleEditingController = TextEditingController();
     _focusNode = FocusNode();
-    if (widget.dreamId != null) {
-      _centralService.currentDreamId = widget.dreamId!;
-    }
+    _titleFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    _chatDebounce?.cancel();
+    _textEditingController.dispose();
+    _titleEditingController.dispose();
+    _focusNode.dispose();
+    _titleFocusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CentralService>(
-      builder: (context, centralService, child) {
-        // Get Dream getDreamById();
-        dreamId = centralService.currentDreamId;
+    return Consumer<ChatService>(
+      builder: (context, chatService, child) {
+        List<Chat>? chatList = chatService.getChatListById(widget.dreamId);
+
         return Material(
           child: MaterialApp(
             home: Scaffold(
@@ -63,15 +87,23 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                             Icons.arrow_back,
                             color: Styles.white,
                           )),
+                      SizedBox(
+                          width: 400,
+                          height: 50,
+                          child: LabeledTextField(
+                            color: Styles.yellow,
+                            focusNode: _titleFocusNode,
+                            controller: _titleEditingController,
+                            onChanged: (value) => _onTitleChanged(value),
+                            label: "Dream Title",
+                          )),
                       // textfield
                       SizedBox(
                           width: 400,
                           child: LabeledTextField(
                             focusNode: _focusNode,
                             controller: _textEditingController,
-                            onChanged: (value) {
-                              print(value);
-                            },
+                            onChanged: (value) => _onTextChanged(value),
                             label: "Write your dream",
                           )),
                       // button
@@ -80,23 +112,27 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         label: "Analyze",
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
-                          sendMessage(centralService);
+                          //   analyzeDream(dreamService);
                         },
                       ),
                       // result
-                      dreamId != null
+                      chatList != null && chatList.isNotEmpty
                           ? Flexible(
                               child: ListView.builder(
-                                  // controller: _listScrollController,
-                                  itemCount: centralService.getChatListById(dreamId)?.length,
+                                  itemCount: chatList.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: DreamCard(
                                         width: 600,
-                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                           Text(
-                                            centralService.getChatListById(dreamId)![index].text ?? '',
+                                            "${chatList[index].role} : ",
+                                            style: Styles.uiMediumItalic,
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          Text(
+                                            chatList[index].text ?? '',
                                             style: Styles.uiSemiBoldMedium,
                                             textAlign: TextAlign.start,
                                           ),
@@ -111,8 +147,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                           Amplify.Auth.signOut();
                         },
                       ),
-                      // clear data button
-                      SimpleButton(label: "",)
                     ],
                   ),
                 ),
@@ -123,17 +157,52 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       },
     );
   }
-  // function to send message with string "123" added at end
-  
-  // function to find prime 
 
+  _onTitleChanged(String value) async {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
+      String? dreamId = await _dreamService.createOrUpdateDream(
+        currentDreamId,
+        _titleEditingController.text,
+      );
+      setState(() {
+        currentDreamId = dreamId;
+      });
+    });
+  }
 
-  Future<void> sendMessage(CentralService centralService) async {
-    await centralService.handleMessageSend(_textEditingController.text);
+  _onTextChanged(String value) async {
+    if (_chatDebounce?.isActive ?? false) _chatDebounce!.cancel();
+    _chatDebounce = Timer(const Duration(milliseconds: 500), () async {
+      String? dreamId = currentDreamId;
+      if (currentDreamId == null) {
+        dreamId = await _dreamService.createOrUpdateDream(
+          currentDreamId,
+          _titleEditingController.text,
+        );
+      }
+      _chatService.createChat(
+        dreamId!,
+        _titleEditingController.text,
+        ChatRoleType.USER,
+      );
+    });
+  }
 
+  Future<void> analyzeDream(List<Chat> chatList) async {
+    String? response = await ApiService.sendMessage(list: chatList);
+    if (response != null && response.isNotEmpty) {
+      _chatService.createChat(
+        currentDreamId!,
+        response,
+        ChatRoleType.ASSISTANT,
+      );
+    }
     setState(() {
+      _titleEditingController.clear();
       _textEditingController.clear();
       _focusNode.unfocus();
+      _titleFocusNode.unfocus();
     });
   }
 }

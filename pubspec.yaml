@@ -42,14 +42,14 @@ dependencies:
   flutter_dotenv: ^5.0.2
   provider: ^6.0.5
   get_it: ^7.2.0
-  amplify_datastore: ^1.0.0-0
-  amplify_flutter: ^1.0.0-0
-  amplify_auth_cognito: ^1.0.0-0
-  amplify_authenticator: ^1.0.0-0
+  amplify_datastore: ^0.6.0
+  amplify_api: ^0.6.0
+  amplify_flutter: ^0.6.0
+  amplify_auth_cognito: ^0.6.0
+  amplify_authenticator: ^0.6.0
   sms_autofill: ^2.3.0
   lottie: ^2.2.0
   change_notifier_builder: ^1.1.2
-
 
 
 

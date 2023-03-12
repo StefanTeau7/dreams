@@ -20,18 +20,18 @@
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'package:amplify_core/amplify_core.dart';
-
 import 'chat.dart';
 import 'dream.dart';
 import 'user.dart';
 
 export 'chat.dart';
+export 'chatRoleType.dart';
 export 'dream.dart';
 export 'user.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "a8ec0cb902b69c14f95b4e309ffb3c96";
+  String version = "ff1b4a280a2d41ba41de3bdb935ed765";
   @override
   List<ModelSchema> modelSchemas = [Chat.schema, Dream.schema, User.schema];
   static final ModelProvider _instance = ModelProvider();
@@ -39,9 +39,9 @@ class ModelProvider implements ModelProviderInterface {
   List<ModelSchema> customTypeSchemas = [];
 
   static ModelProvider get instance => _instance;
-
+  
   ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
+    switch(modelName) {
       case "Chat":
         return Chat.classType;
       case "Dream":

@@ -34,6 +34,7 @@ class User extends Model {
   final String? _email;
   final String? _phone;
   final List<Dream>? _mind;
+  final List<Chat>? _thoughts;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -66,6 +67,10 @@ class User extends Model {
     return _mind;
   }
   
+  List<Chat>? get thoughts {
+    return _thoughts;
+  }
+  
   TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -74,15 +79,16 @@ class User extends Model {
     return _updatedAt;
   }
   
-  const User._internal({required this.id, first, email, phone, mind, createdAt, updatedAt}): _first = first, _email = email, _phone = phone, _mind = mind, _createdAt = createdAt, _updatedAt = updatedAt;
+  const User._internal({required this.id, first, email, phone, mind, thoughts, createdAt, updatedAt}): _first = first, _email = email, _phone = phone, _mind = mind, _thoughts = thoughts, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory User({String? id, String? first, String? email, String? phone, List<Dream>? mind}) {
+  factory User({String? id, String? first, String? email, String? phone, List<Dream>? mind, List<Chat>? thoughts}) {
     return User._internal(
       id: id == null ? UUID.getUUID() : id,
       first: first,
       email: email,
       phone: phone,
-      mind: mind != null ? List<Dream>.unmodifiable(mind) : mind);
+      mind: mind != null ? List<Dream>.unmodifiable(mind) : mind,
+      thoughts: thoughts != null ? List<Chat>.unmodifiable(thoughts) : thoughts);
   }
   
   bool equals(Object other) {
@@ -97,7 +103,8 @@ class User extends Model {
       _first == other._first &&
       _email == other._email &&
       _phone == other._phone &&
-      DeepCollectionEquality().equals(_mind, other._mind);
+      DeepCollectionEquality().equals(_mind, other._mind) &&
+      DeepCollectionEquality().equals(_thoughts, other._thoughts);
   }
   
   @override
@@ -119,13 +126,14 @@ class User extends Model {
     return buffer.toString();
   }
   
-  User copyWith({String? first, String? email, String? phone, List<Dream>? mind}) {
+  User copyWith({String? first, String? email, String? phone, List<Dream>? mind, List<Chat>? thoughts}) {
     return User._internal(
       id: id,
       first: first ?? this.first,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      mind: mind ?? this.mind);
+      mind: mind ?? this.mind,
+      thoughts: thoughts ?? this.thoughts);
   }
   
   User.fromJson(Map<String, dynamic> json)  
@@ -139,15 +147,21 @@ class User extends Model {
           .map((e) => Dream.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
           .toList()
         : null,
+      _thoughts = json['thoughts'] is List
+        ? (json['thoughts'] as List)
+          .where((e) => e?['serializedData'] != null)
+          .map((e) => Chat.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
+          .toList()
+        : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind?.map((Dream? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind?.map((Dream? e) => e?.toJson()).toList(), 'thoughts': _thoughts?.map((Chat? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'id': id, 'first': _first, 'email': _email, 'phone': _phone, 'mind': _mind, 'thoughts': _thoughts, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<UserModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<UserModelIdentifier>();
@@ -158,6 +172,9 @@ class User extends Model {
   static final QueryField MIND = QueryField(
     fieldName: "mind",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Dream'));
+  static final QueryField THOUGHTS = QueryField(
+    fieldName: "thoughts",
+    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'Chat'));
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "User";
     modelSchemaDefinition.pluralName = "Users";
@@ -209,6 +226,13 @@ class User extends Model {
       isRequired: false,
       ofModelName: 'Dream',
       associatedKey: Dream.USERID
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
+      key: User.THOUGHTS,
+      isRequired: false,
+      ofModelName: 'Chat',
+      associatedKey: Chat.USERID
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(

@@ -1,4 +1,7 @@
 # This is a generated file; do not edit or check into version control.
+amplify_api=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_api-1.0.0-next.5+1/
+amplify_api_android=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_api_android-1.0.0-next.5/
+amplify_api_ios=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_api_ios-1.0.0-next.5/
 amplify_auth_cognito=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_auth_cognito-1.0.0-next.5+1/
 amplify_auth_cognito_android=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_auth_cognito_android-1.0.0-next.5/
 amplify_auth_cognito_ios=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_auth_cognito_ios-1.0.0-next.5/
@@ -7,6 +10,7 @@ amplify_flutter=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_flutter-1.0.
 amplify_flutter_android=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_flutter_android-1.0.0-next.5/
 amplify_flutter_ios=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_flutter_ios-1.0.0-next.5/
 amplify_secure_storage=/Users/stefanteau/.pub-cache/hosted/pub.dev/amplify_secure_storage-0.2.0/
+connectivity_plus=/Users/stefanteau/.pub-cache/hosted/pub.dev/connectivity_plus-3.0.3/
 path_provider=/Users/stefanteau/.pub-cache/hosted/pub.dev/path_provider-2.0.13/
 path_provider_android=/Users/stefanteau/.pub-cache/hosted/pub.dev/path_provider_android-2.0.23/
 path_provider_foundation=/Users/stefanteau/.pub-cache/hosted/pub.dev/path_provider_foundation-2.1.2/
