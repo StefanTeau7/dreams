@@ -4,12 +4,13 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
 import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/ChatRoleType.dart';
+import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
-import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:dream_catcher/widgets/labeled_text_field.dart';
+import 'package:dream_catcher/widgets/self_saving_text_field.dart';
 import 'package:dream_catcher/widgets/simple_button.dart';
 import 'package:dream_catcher/widgets/spaced_column.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,10 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   void initState() {
     super.initState();
     currentDreamId = widget.dreamId;
+    Dream? dream = _dreamService.getDreamById(widget.dreamId);
     _chatService.fetchDreamChats(currentDreamId);
     _textEditingController = TextEditingController();
-    _titleEditingController = TextEditingController();
+    _titleEditingController = TextEditingController(text: dream?.title ?? '');
     _focusNode = FocusNode();
     _titleFocusNode = FocusNode();
   }
@@ -60,15 +62,15 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ChatService>(
-      builder: (context, chatService, child) {
+    return Consumer2<ChatService, DreamService>(
+      builder: (context, chatService, dreamService, child) {
         List<Chat>? chatList = chatService.getChatListById(widget.dreamId);
-
         return Material(
           child: MaterialApp(
             home: Scaffold(
               body: Center(
                 child: Container(
+                  padding: const EdgeInsets.all(20),
                   width: double.infinity,
                   height: double.infinity,
                   decoration: const BoxDecoration(
@@ -90,12 +92,11 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                           )),
                       SizedBox(
                           width: 400,
-                          child: LabeledTextField(
-                            color: Styles.yellow,
+                          child: SelfSavingTextField(
+                            _titleEditingController,
                             focusNode: _titleFocusNode,
-                            controller: _titleEditingController,
                             onChanged: (value) => _onTitleChanged(value),
-                            label: "Dream Title",
+                            hintText: "Dream Title",
                           )),
                       // textfield
                       SizedBox(
@@ -122,26 +123,34 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                   itemCount: chatList.length,
                                   itemBuilder: (context, index) {
                                     return Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: DreamCard(
-                                        color: Styles.wine,
-                                        width: 600,
-                                        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                          Text(
-                                            "${chatList[index].role} : ",
-                                            style: Styles.uiMediumItalic,
-                                            textAlign: TextAlign.start,
+                                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                      child: Column(
+                                        children: [
+                                          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                            Text(
+                                              "${chatList[index].role} : ",
+                                              style: Styles.uiMediumItalic,
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            Text(
+                                              chatList[index].text ?? '',
+                                              style: Styles.uiSemiBoldMedium,
+                                              textAlign: TextAlign.start,
+                                            ),
+                                          ]),
+                                          const SizedBox(
+                                            height: 5,
                                           ),
-                                          Text(
-                                            chatList[index].text ?? '',
-                                            style: Styles.uiSemiBoldMedium,
-                                            textAlign: TextAlign.start,
+                                          Container(
+                                            height: 1,
+                                            color: Styles.white,
                                           ),
-                                        ]),
+                                        ],
                                       ),
                                     );
                                   }))
                           : Container(),
+
                       SimpleButton(
                         label: "Logout",
                         onPressed: () {

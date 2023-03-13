@@ -9,6 +9,11 @@ class DreamService extends ChangeNotifier {
   final UserService _userService = getIt<UserService>();
   static final Map<String, Dream> _dreamsById = {};
 
+  Dream? getDreamById(String? id) {
+    if (id == null) return null;
+    return _dreamsById[id];
+  }
+
   List<Dream>? getAllMyDreams() {
     return _dreamsById.values.toList();
   }

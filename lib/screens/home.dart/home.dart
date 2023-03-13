@@ -28,6 +28,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: Scaffold(body: DreamCollection()));
+    return const MaterialApp(home: Scaffold(body: SafeArea(child: DreamCollection())));
   }
 }
