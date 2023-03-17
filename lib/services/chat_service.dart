@@ -71,8 +71,45 @@ class ChatService extends ChangeNotifier {
     }
   }
 
+  Future<bool> updateChat(String chatId, String dreamId, String text) async {
+    try {
+      List<Chat>? list = getChatListById(dreamId);
+      Chat? chat = list?.firstWhere((element) => element.id == chatId);
+      if (chat != null) {
+        String? userId = await _userService.retrieveCurrentUserId();
+
+        if (userId == null) {
+          safePrint('User ID is null');
+          return false;
+        }
+        final update =
+            Chat(id: chatId, dreamID: dreamId, text: text, role: chat.role, userID: userId, chatIndex: chat.chatIndex);
+        final request = ModelMutations.update(update);
+        final response = await Amplify.API.mutate(request: request).response;
+
+        final updatedChat = response.data;
+        if (updatedChat == null) {
+          safePrint('errors: ${response.errors}');
+          return false;
+        }
+        safePrint('Mutation result: ${updatedChat.text}');
+        placeChatInLists(dreamId, updatedChat);
+
+        notifyListeners();
+        return true;
+      }
+      return false;
+    } on ApiException catch (e) {
+      safePrint('Mutation failed: $e');
+      return false;
+    }
+  }
+
   void placeChatInLists(String dreamID, Chat chat) {
     List<Chat> list = getChatListById(dreamID) ?? [];
+    if (list.map((e) => e.id).contains(chat.id)) {
+      list.removeWhere((element) => element.id == chat.id);
+    }
     list.add(chat);
     _chatsByDreamId[dreamID] = list;
   }

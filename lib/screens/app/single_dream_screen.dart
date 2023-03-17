@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
 import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/ChatRoleType.dart';
@@ -17,8 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SingleDreamScreen extends StatefulWidget {
-  String? dreamId;
-  SingleDreamScreen({super.key, this.dreamId});
+  final String? dreamId;
+  const SingleDreamScreen({super.key, this.dreamId});
 
   @override
   State<SingleDreamScreen> createState() => _SingleDreamScreenState();
@@ -33,16 +32,17 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   Timer? _debounce;
   Timer? _chatDebounce;
 
-  String? currentDreamId;
+  String? _currentDreamId;
+  String? _currentChatId;
   final DreamService _dreamService = getIt<DreamService>();
   final ChatService _chatService = getIt<ChatService>();
 
   @override
   void initState() {
     super.initState();
-    currentDreamId = widget.dreamId;
+    _currentDreamId = widget.dreamId;
     Dream? dream = _dreamService.getDreamById(widget.dreamId);
-    _chatService.fetchDreamChats(currentDreamId);
+    _chatService.fetchDreamChats(_currentDreamId);
     _textEditingController = TextEditingController();
     _titleEditingController = TextEditingController(text: dream?.title ?? '');
     _focusNode = FocusNode();
@@ -64,7 +64,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   Widget build(BuildContext context) {
     return Consumer2<ChatService, DreamService>(
       builder: (context, chatService, dreamService, child) {
-        List<Chat>? chatList = chatService.getChatListById(widget.dreamId);
+        List<Chat> chatList = chatService.getChatListById(widget.dreamId) ?? [];
         return Material(
           child: MaterialApp(
             home: Scaffold(
@@ -81,8 +81,8 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                   )),
                   child: SpacedColumn(
                     height: 20,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
                           onTap: () => Navigator.pop(context),
@@ -105,7 +105,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                             focusNode: _focusNode,
                             controller: _textEditingController,
                             onChanged: (value) => _onTextChanged(value),
-                            label: "Write your dream",
+                            label: "",
                           )),
                       // button
                       SimpleButton(
@@ -113,11 +113,13 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                         label: "Analyze",
                         buttonVariant: ButtonVariant.PRIMARY,
                         onPressed: () {
-                          //   analyzeDream(dreamService);
+                          if (chatList.isNotEmpty) {
+                            analyzeDream(chatList);
+                          }
                         },
                       ),
                       // result
-                      chatList != null && chatList.isNotEmpty
+                      chatList.isNotEmpty
                           ? Flexible(
                               child: ListView.builder(
                                   itemCount: chatList.length,
@@ -150,13 +152,12 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                     );
                                   }))
                           : Container(),
-
-                      SimpleButton(
-                        label: "Logout",
-                        onPressed: () {
-                          Amplify.Auth.signOut();
-                        },
-                      ),
+                      // SimpleButton(
+                      //   label: "Logout",
+                      //   onPressed: () {
+                      //     Amplify.Auth.signOut();
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
@@ -172,30 +173,40 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () async {
       String? dreamId = await _dreamService.createOrUpdateDream(
-        currentDreamId,
+        _currentDreamId,
         _titleEditingController.text,
       );
       setState(() {
-        currentDreamId = dreamId;
+        _currentDreamId = dreamId;
       });
     });
   }
 
   _onTextChanged(String value) async {
+    // need chatId
     if (_chatDebounce?.isActive ?? false) _chatDebounce!.cancel();
     _chatDebounce = Timer(const Duration(milliseconds: 500), () async {
-      String? dreamId = currentDreamId;
-      if (currentDreamId == null) {
+      String? dreamId = _currentDreamId;
+      if (_currentDreamId == null) {
         dreamId = await _dreamService.createOrUpdateDream(
-          currentDreamId,
+          _currentDreamId,
           _titleEditingController.text,
         );
       }
-      _chatService.createChat(
-        dreamId!,
-        _textEditingController.text,
-        ChatRoleType.USER,
-      );
+      if (_currentChatId != null) {
+        _chatService.updateChat(
+          _currentChatId!,
+          dreamId!,
+          _textEditingController.text,
+        );
+      } else {
+        _currentChatId = await _chatService.createChat(
+          dreamId!,
+          _textEditingController.text,
+          ChatRoleType.USER,
+        );
+      }
+      setState(() {});
     });
   }
 
@@ -203,7 +214,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
     String? response = await ApiService.sendMessage(list: chatList);
     if (response != null && response.isNotEmpty) {
       _chatService.createChat(
-        currentDreamId!,
+        _currentDreamId!,
         response,
         ChatRoleType.ASSISTANT,
       );
