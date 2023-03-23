@@ -38,7 +38,6 @@ class ApiService {
   // Send Message fct
   static Future<String?> sendMessage({required List<Chat> list}) async {
     try {
-      var chatJson = {"model": AI_MODEL_ID};
       var messages = [];
       final instruction = {
         "role": "system",
@@ -48,10 +47,15 @@ class ApiService {
       messages.add(instruction);
 
       for (Chat c in list) {
-        final chat = {"role": c.role, "content": c.text};
+        String role = c.role.toString().split('.').last.toLowerCase();
+        final chat = {"role": role, "content": c.text};
         messages.add(chat);
       }
-      chatJson["messages"] = messages.toString();
+      var chatJson = {
+        "model": AI_MODEL_ID,
+        "messages": messages,
+        "max_tokens": 100,
+      };
 
       String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;
@@ -67,8 +71,7 @@ class ApiService {
       if (jsonResponse['error'] != null) {
         throw HttpException(jsonResponse['error']["message"]);
       }
-      int lastIndex = jsonResponse["choices"].length - 1;
-      return jsonResponse["choices"][lastIndex]["message"]["content"];
+      return jsonResponse["choices"]["message"]["content"];
     } catch (error) {
       log("error $error");
       rethrow;

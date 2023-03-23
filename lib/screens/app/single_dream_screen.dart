@@ -128,24 +128,22 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                                       child: Column(
                                         children: [
-                                          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                                          Wrap(children: [
                                             Text(
-                                              "${chatList[index].role} : ",
+                                              _getRoleLabel(chatList[index].role),
                                               style: Styles.uiMediumItalic,
                                               textAlign: TextAlign.start,
                                             ),
-                                            Text(
-                                              chatList[index].text ?? '',
-                                              style: Styles.uiSemiBoldMedium,
-                                              textAlign: TextAlign.start,
+                                            Center(
+                                              child: Text(
+                                                chatList[index].text ?? '',
+                                                style: Styles.uiSemiBoldMedium,
+                                                textAlign: TextAlign.start,
+                                              ),
                                             ),
                                           ]),
                                           const SizedBox(
                                             height: 5,
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            color: Styles.white,
                                           ),
                                         ],
                                       ),
@@ -167,6 +165,14 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
         );
       },
     );
+  }
+
+  _getRoleLabel(ChatRoleType? type) {
+    if (type == ChatRoleType.ASSISTANT) {
+      return "Wizard : ";
+    } else {
+      return "Me : ";
+    }
   }
 
   _onTitleChanged(String value) async {
