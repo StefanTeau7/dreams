@@ -26,7 +26,7 @@ class _DreamCollectionState extends State<DreamCollection> {
               gradient: LinearGradient(
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
-            colors: [Styles.wine, Styles.black],
+            colors: [Styles.deepOceanBlue, Styles.black],
           )),
           child: Container(
             padding: const EdgeInsets.all(20),
@@ -91,7 +91,7 @@ class _DreamCollectionState extends State<DreamCollection> {
             );
           },
           height: 200,
-          color: Styles.wine.withOpacity(0.7),
+          color: Styles.mistyBlue.withOpacity(0.3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

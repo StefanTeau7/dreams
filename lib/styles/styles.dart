@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Styles {
+  static const deepOceanBlue = Color(0xFF094D92);
+  static const forestGreen = Color(0xFF0B3D0B);
+  static const lavenderPurple = Color(0xFF7B68EE);
+  static const mistyBlue = Color(0xFF759ABE);
+  static const twilightGreen = Color(0xFF34656D);
+
+  
   // rebrand styles
   static const Color lightBg = Color(0xFFF9F7F2);
   static const Color lightTone = Color(0xFFF8F5EA);
@@ -374,7 +381,6 @@ class Styles {
       fillColor: color,
       filled: false,
       isCollapsed: true,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
       hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.textInactive),
       border: const OutlineInputBorder(
           borderSide: BorderSide.none,

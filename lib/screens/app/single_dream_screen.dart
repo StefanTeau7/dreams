@@ -8,6 +8,7 @@ import 'package:dream_catcher/services/api_service.dart';
 import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
+import 'package:dream_catcher/widgets/async_action_button.dart';
 import 'package:dream_catcher/widgets/labeled_text_field.dart';
 import 'package:dream_catcher/widgets/self_saving_text_field.dart';
 import 'package:dream_catcher/widgets/simple_button.dart';
@@ -30,7 +31,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   late FocusNode _focusNode;
   late FocusNode _titleFocusNode;
   Timer? _debounce;
-  Timer? _chatDebounce;
 
   String? _currentDreamId;
   String? _currentChatId;
@@ -52,7 +52,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   @override
   void dispose() {
     _debounce?.cancel();
-    _chatDebounce?.cancel();
     _textEditingController.dispose();
     _titleEditingController.dispose();
     _focusNode.dispose();
@@ -77,85 +76,92 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                       gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    colors: [Styles.wine, Styles.blue],
+                    colors: [Styles.deepOceanBlue, Styles.black],
                   )),
-                  child: SpacedColumn(
-                    height: 20,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                          onTap: () => Navigator.pop(context),
-                          child: const Icon(
-                            Icons.arrow_back,
-                            color: Styles.white,
-                          )),
-                      SizedBox(
-                          width: 400,
-                          child: SelfSavingTextField(
-                            _titleEditingController,
-                            focusNode: _titleFocusNode,
-                            onChanged: (value) => _onTitleChanged(value),
-                            hintText: "Dream Title",
-                          )),
-                      // result
-                      chatList.isNotEmpty
-                          ? Flexible(
-                              child: ListView.builder(
-                                  itemCount: chatList.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                      child: Column(
-                                        children: [
-                                          Wrap(children: [
-                                            Text(
-                                              _getRoleLabel(chatList[index].role),
-                                              style: Styles.uiMediumItalic,
-                                              textAlign: TextAlign.start,
-                                            ),
-                                            Center(
-                                              child: Text(
-                                                chatList[index].text ?? '',
-                                                style: Styles.uiSemiBoldMedium,
+                  child: SingleChildScrollView(
+                    child: SpacedColumn(
+                      height: 20,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                            onTap: () => Navigator.pop(context),
+                            child: const Icon(
+                              Icons.arrow_back,
+                              color: Styles.white,
+                            )),
+                        SizedBox(
+                            width: 400,
+                            child: SelfSavingTextField(
+                              _titleEditingController,
+                              focusNode: _titleFocusNode,
+                              onChanged: (value) => _onTitleChanged(value),
+                              hintText: "Dream Title",
+                            )),
+                        // result
+                        chatList.isNotEmpty
+                            ? Flexible(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemCount: chatList.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                        child: Column(
+                                          children: [
+                                            Wrap(children: [
+                                              Text(
+                                                _getRoleLabel(chatList[index].role),
+                                                style: Styles.uiMediumItalic,
                                                 textAlign: TextAlign.start,
                                               ),
+                                              Center(
+                                                child: Text(
+                                                  chatList[index].text ?? '',
+                                                  style: Styles.uiSemiBoldMedium,
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+                                            ]),
+                                            const SizedBox(
+                                              height: 5,
                                             ),
-                                          ]),
-                                          const SizedBox(
-                                            height: 5,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }))
-                          : Container(),
-                      SizedBox(
-                          width: 400,
-                          child: LabeledTextField(
-                            focusNode: _focusNode,
-                            controller: _textEditingController,
-                            onChanged: (value) => _onTextChanged(value),
-                            label: '',
-                            hint: "Write your dream",
-                          )),
-                      SimpleButton(
-                        width: 200,
-                        label: "Analyze",
-                        buttonVariant: ButtonVariant.PRIMARY,
-                        onPressed: () {
-                          if (chatList.isNotEmpty) {
-                            analyzeDream(chatList);
-                          }
-                        },
-                      ),
-                      // SimpleButton(
-                      //   label: "Logout",
-                      //   onPressed: () {
-                      //     Amplify.Auth.signOut();
-                      //   },
-                      // ),
-                    ],
+                                          ],
+                                        ),
+                                      );
+                                    }))
+                            : Container(),
+                        SizedBox(
+                            width: 400,
+                            height: 100,
+                            child: LabeledTextField(
+                              focusNode: _focusNode,
+                              controller: _textEditingController,
+                              label: '',
+                              hint: chatList.isNotEmpty ? "Reply.." : "Write your dream",
+                            )),
+                        AsyncActionButton(
+                          width: 200,
+                          height: 50,
+                          label: "Analyze",
+                          buttonVariant: ButtonVariant.PRIMARY,
+                          onPressed: () async {
+                            await _saveChat(_textEditingController.text, chatService);
+                            List<Chat> chatList = chatService.getChatListById(_currentDreamId) ?? [];
+                            if (chatList.isNotEmpty) {
+                              analyzeDream(chatList);
+                            }
+                          },
+                        ),
+                        // SimpleButton(
+                        //   label: "Logout",
+                        //   onPressed: () {
+                        //     Amplify.Auth.signOut();
+                        //   },
+                        // ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -187,31 +193,28 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
     });
   }
 
-  _onTextChanged(String value) async {
-    if (_chatDebounce?.isActive ?? false) _chatDebounce!.cancel();
-    _chatDebounce = Timer(const Duration(milliseconds: 500), () async {
-      String? dreamId = _currentDreamId;
-      if (_currentDreamId == null) {
-        dreamId = await _dreamService.createOrUpdateDream(
-          _currentDreamId,
-          _titleEditingController.text,
-        );
-      }
-      if (_currentChatId != null) {
-        _chatService.updateChat(
-          _currentChatId!,
-          dreamId!,
-          _textEditingController.text,
-        );
-      } else {
-        _currentChatId = await _chatService.createChat(
-          dreamId!,
-          _textEditingController.text,
-          ChatRoleType.USER,
-        );
-      }
-      setState(() {});
-    });
+  Future<void> _saveChat(String value, ChatService chatService) async {
+    String? dreamId = _currentDreamId;
+    if (_currentDreamId == null) {
+      dreamId = await _dreamService.createOrUpdateDream(
+        _currentDreamId,
+        _titleEditingController.text,
+      );
+    }
+    if (_currentChatId != null) {
+      await _chatService.updateChat(
+        _currentChatId!,
+        dreamId!,
+        _textEditingController.text,
+      );
+    } else {
+      _currentChatId = await _chatService.createChat(
+        dreamId!,
+        _textEditingController.text,
+        ChatRoleType.USER,
+      );
+    }
+    return;
   }
 
   Future<void> analyzeDream(List<Chat> chatList) async {
@@ -227,6 +230,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       _currentChatId = null;
       _textEditingController.clear();
       _focusNode.unfocus();
+      _titleFocusNode.unfocus();
       _titleFocusNode.unfocus();
     });
   }

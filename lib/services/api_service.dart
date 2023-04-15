@@ -54,7 +54,7 @@ class ApiService {
       var chatJson = {
         "model": AI_MODEL_ID,
         "messages": messages,
-        "max_tokens": 100,
+        "max_tokens": 3000,
       };
       String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;

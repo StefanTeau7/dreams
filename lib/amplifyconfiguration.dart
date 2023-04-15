@@ -9,7 +9,7 @@ const amplifyconfig = ''' {
                     "endpoint": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
                     "region": "us-west-1",
                     "authorizationType": "API_KEY",
-                    "apiKey": "da2-jtu6g2qcjzgglbhqedb3gtfkny"
+                    "apiKey": "da2-6tm5eoihuncnnekdsgzvr5l2ri"
                 }
             }
         }

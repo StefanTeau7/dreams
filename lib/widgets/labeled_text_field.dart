@@ -52,28 +52,30 @@ class LabeledTextField extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
       Text(label, style: labelStyle ?? Styles.uiLightMedium),
       const SizedBox(height: 5),
-      TextField(
-        focusNode: focusNode,
-        controller: controller,
-        style: Styles.uiMedium,
-        decoration: Styles.getChatDecoration(hint ?? ''),
-        textCapitalization: textCapitalization ?? TextCapitalization.sentences,
-        keyboardType: keyboardType,
-        enableSuggestions: enableSuggestions ?? false,
-        autocorrect: autocorrect ?? false,
-        textInputAction: textInputAction,
-        onChanged: (value) {
-          if ( onChanged != null) {
-            onChanged!(value);
-          }
-        },
-        onSubmitted: onSubmitted,
-        minLines: minLines,
-        maxLines: maxLines,
-        maxLength: maxLength,
-        autofocus: autofocus ?? false,
-        inputFormatters: inputFormatters,
-        readOnly: readOnly,
+      Expanded(
+        child: TextField(
+          focusNode: focusNode,
+          controller: controller,
+          style: Styles.uiMedium,
+          decoration: Styles.getChatDecoration(hint ?? ''),
+          textCapitalization: textCapitalization ?? TextCapitalization.sentences,
+          keyboardType: keyboardType,
+          enableSuggestions: enableSuggestions ?? false,
+          autocorrect: autocorrect ?? false,
+          textInputAction: textInputAction,
+          onChanged: (value) {
+            if (onChanged != null) {
+              onChanged!(value);
+            }
+          },
+          onSubmitted: onSubmitted,
+          minLines: minLines,
+          maxLines: maxLines,
+          maxLength: maxLength,
+          autofocus: autofocus ?? false,
+          inputFormatters: inputFormatters,
+          readOnly: readOnly,
+        ),
       )
     ]);
   }
