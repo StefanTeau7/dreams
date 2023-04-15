@@ -1,8 +1,10 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
+import 'package:dream_catcher/widgets/simple_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,10 +57,10 @@ class _DreamCollectionState extends State<DreamCollection> {
   _getFloatingButton() {
     return Center(
       child: FloatingActionButton(
-        backgroundColor: Styles.blueLight,
+        backgroundColor: Styles.mistyBlue,
         child: const Icon(
           Icons.add,
-          color: Styles.wine,
+          color: Styles.deepOceanBlue,
         ),
         onPressed: () => _pushNewDreamScreen(),
       ),
@@ -75,10 +77,19 @@ class _DreamCollectionState extends State<DreamCollection> {
       );
     }
     return GridView.builder(
-      itemCount: myDreams.length,
+      itemCount: myDreams.length + 1,
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 300, mainAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
+          maxCrossAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemBuilder: (context, i) {
+        if (i == myDreams.length) {
+          return SimpleButton(
+            height: 20,
+            label: "Logout",
+            onPressed: () {
+              Amplify.Auth.signOut();
+            },
+          );
+        }
         return DreamCard(
           onTap: () {
             Navigator.push(

@@ -154,12 +154,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                             }
                           },
                         ),
-                        // SimpleButton(
-                        //   label: "Logout",
-                        //   onPressed: () {
-                        //     Amplify.Auth.signOut();
-                        //   },
-                        // ),
+               
                       ],
                     ),
                   ),

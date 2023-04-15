@@ -60,7 +60,7 @@ class _DreamCardState extends State<DreamCard> {
               top: 7,
               child: Container(
                 alignment: Alignment.center,
-                decoration: const BoxDecoration(color: Styles.wine, shape: BoxShape.circle),
+                decoration: const BoxDecoration(color: Styles.deepOceanBlue, shape: BoxShape.circle),
                 constraints: const BoxConstraints(
                   minWidth: Styles.badgeSize - 4,
                   minHeight: Styles.badgeSize - 4,

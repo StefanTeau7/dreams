@@ -49,9 +49,11 @@ class _SimpleButtonState extends State<SimpleButton> {
 
   @override
   Widget build(BuildContext context) {
-    Color buttonColor = ButtonVariant.getButtonVariantColors(widget.buttonVariant)["buttonColor"] ?? Styles.wine;
+    Color buttonColor =
+        ButtonVariant.getButtonVariantColors(widget.buttonVariant)["buttonColor"] ?? Styles.lavenderPurple;
     Color labelColor = ButtonVariant.getButtonVariantColors(widget.buttonVariant)["labelColor"] ?? Styles.white;
-    Color borderColor = ButtonVariant.getButtonVariantColors(widget.buttonVariant)["borderColor"] ?? Styles.wine;
+    Color borderColor =
+        ButtonVariant.getButtonVariantColors(widget.buttonVariant)["borderColor"] ?? Styles.lavenderPurple;
 
     if (widget.color != null) {
       buttonColor = widget.color!;
@@ -172,25 +174,21 @@ class ButtonVariant {
 
   static Map<String, Color> getButtonVariantColors(ButtonVariant variant) {
     switch (variant) {
-      case ButtonVariant.YELLOW:
-        return {'buttonColor': Styles.yellow, 'labelColor': Styles.white, 'borderColor': Styles.yellow};
       case ButtonVariant.SECONDARY:
-        return {'buttonColor': Styles.wine, 'labelColor': Styles.white, 'borderColor': Styles.white};
+        return {'buttonColor': Styles.deepOceanBlue, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.TERTIARY:
-        return {'buttonColor': Styles.lightMid, 'labelColor': Styles.white, 'borderColor': Styles.lightMid};
+        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.OUTLINED:
         return {'buttonColor': Colors.transparent, 'labelColor': Styles.white, 'borderColor': Styles.white};
-      case ButtonVariant.PRIMARY_DISABLED:
-        return {'buttonColor': Styles.pink, 'labelColor': Styles.white, 'borderColor': Styles.pink};
       case ButtonVariant.SECONDARY_DISABLED:
-        return {'buttonColor': Styles.lightMid, 'labelColor': Styles.white, 'borderColor': Styles.lightMid};
+        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.TERTIARY_DISABLED:
-        return {'buttonColor': Styles.lightMid, 'labelColor': Styles.textInactive, 'borderColor': Styles.lightMid};
+        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.OUTLINED_DISABLED:
-        return {'buttonColor': Colors.transparent, 'labelColor': Styles.lightMid, 'borderColor': Styles.lightMid};
+        return {'buttonColor': Colors.transparent, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.PRIMARY:
       default:
-        return {'buttonColor': Styles.wine, 'labelColor': Styles.white, 'borderColor': Styles.wine};
+        return {'buttonColor': Styles.deepOceanBlue, 'labelColor': Styles.white, 'borderColor': Styles.deepOceanBlue};
     }
   }
 

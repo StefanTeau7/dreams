@@ -6,34 +6,8 @@ class Styles {
   static const lavenderPurple = Color(0xFF7B68EE);
   static const mistyBlue = Color(0xFF759ABE);
   static const twilightGreen = Color(0xFF34656D);
-
-  
-  // rebrand styles
-  static const Color lightBg = Color(0xFFF9F7F2);
-  static const Color lightTone = Color(0xFFF8F5EA);
-  static const Color lightMid = Color(0xFFE4E1D5);
-  static const Color textInactive = Color(0xFFC9C5B9);
-  static const Color pink = Color(0xFFFFE8E3);
-  static const Color disabledButton = Color(0xFFE0DFDE);
-  static const Color yellow = Color(0xFFFFE55F);
-  static const Color yellowLight = Color(0xFFFFF174);
-  static const Color greenDeep = Color(0xFF10705E);
-  static const Color blue = Color(0xFF8FD7FF);
-  static const Color blueLight = Color(0xFFE5F6FF);
-  static const Color lavender = Color(0xFFC898DA);
-  static const Color lavenderLight = Color(0xFFE2BEEF);
-  static const Color green = Color(0xFF60BF69);
-  static const Color lime = Color(0xFFCDFFAE);
-  static const Color limeLight = Color(0xFFE6FFD7);
-  static const Color wine = Color(0xFF7C2159);
-  static const Color choco = Color(0xFF202020);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
-  static const Color textFieldBackground = Color(0xFFFFFFFF);
-  static const Color lightWhiteBg = Color(0xFFFDFDFA);
-  static const Color rolloverColor = Color(0xFFFCFBF9);
-  static const Color darkShadowColor = Color.fromRGBO(0, 0, 0, 0.25);
-  static const Color shadowColor = Color.fromRGBO(119, 91, 71, 0.2);
 
   static Color backgroundModalColor = white.withOpacity(0.1);
   static Color backgroundModalDark = white.withOpacity(0.25);
@@ -86,7 +60,7 @@ class Styles {
     fontFamily: _headlineFont,
     fontSize: _headlineLargeFontSize,
     fontWeight: FontWeight.w400,
-    color: wine,
+    color: deepOceanBlue,
   );
 
   static const headlineMedium = TextStyle(
@@ -106,7 +80,7 @@ class Styles {
   static const copyMediumBold = TextStyle(
     fontFamily: _copyFont,
     fontSize: _bodyMediumFontSize,
-    color: wine,
+    color: deepOceanBlue,
     fontWeight: FontWeight.w700,
   );
   static const copyFont = TextStyle(
@@ -140,7 +114,7 @@ class Styles {
   static const copyItalicLight = TextStyle(
       fontFamily: _copyFont,
       fontSize: _uiLargeFontSize,
-      color: lightMid,
+      color: white,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.italic);
 
@@ -190,7 +164,7 @@ class Styles {
   static const uiBoldExtraSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiExtraSmallFontSize,
-    color: choco,
+    color: white,
     fontWeight: FontWeight.w700,
   );
 
@@ -255,7 +229,7 @@ class Styles {
   static const uiInactiveMedium = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiMediumFontSize,
-    color: textInactive,
+    color: white,
     fontWeight: FontWeight.w400,
     height: 1.3,
   );
@@ -286,7 +260,7 @@ class Styles {
   static const uiLightExtraSmall = TextStyle(
     fontFamily: _copyFont,
     fontSize: _uiExtraSmallFontSize,
-    color: textInactive,
+    color: white,
     fontWeight: FontWeight.w400,
   );
 
@@ -328,17 +302,6 @@ class Styles {
     )
   ];
 
-  static const innerShadow = [
-    BoxShadow(
-      color: Styles.shadowColor,
-    ),
-    BoxShadow(
-      color: Styles.white,
-      spreadRadius: 0,
-      blurRadius: 7.0,
-    ),
-  ];
-
   static InputDecoration getInputDecoration(
     String label, {
     Color? color = Styles.white,
@@ -350,7 +313,7 @@ class Styles {
       filled: true,
       isCollapsed: true,
       contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-      hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.textInactive),
+      hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.white),
       border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
@@ -381,7 +344,7 @@ class Styles {
       fillColor: color,
       filled: false,
       isCollapsed: true,
-      hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.textInactive),
+      hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.white),
       border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(

@@ -1,5 +1,5 @@
-import 'package:dream_catcher/main_app.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
+import 'package:dream_catcher/main_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 

@@ -33,9 +33,9 @@ class _MainAppState extends State<MainApp> {
         switch (state.currentStep) {
           case AuthenticatorStep.signIn:
             return Scaffold(
-              backgroundColor: Styles.wine,
+              backgroundColor: Styles.deepOceanBlue,
               body: Container(
-                color: Styles.wine,
+                color: Styles.deepOceanBlue,
                 padding: padding,
                 child: SingleChildScrollView(
                   child: Column(
@@ -66,7 +66,7 @@ class _MainAppState extends State<MainApp> {
             );
           case AuthenticatorStep.signUp:
             return Scaffold(
-              backgroundColor: Styles.wine,
+              backgroundColor: Styles.deepOceanBlue,
               body: Container(
                 padding: padding,
                 child: SingleChildScrollView(

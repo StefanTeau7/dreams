@@ -3,7 +3,7 @@
    <application
         android:label="dream_catcher"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/plume">
         <activity
             android:name=".MainActivity"
             android:exported="true"

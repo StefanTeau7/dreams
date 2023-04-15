@@ -28,7 +28,7 @@ class DreamRouterDelegate extends RouterDelegate<DreameRoute>
     return MaterialPage(
       key: ValueKey(key),
       child: Container(
-        color: Styles.lightBg,
+        color: Styles.white,
         alignment: Alignment.center,
         child: Container(
           constraints: const BoxConstraints(maxWidth: MAX_SCREEN_WIDTH),
@@ -47,14 +47,14 @@ class DreamRouterDelegate extends RouterDelegate<DreameRoute>
         pages.add(MaterialPage(
           key: const ValueKey('home'),
           child: Container(
-            color: Styles.wine,
+            color: Styles.deepOceanBlue,
             alignment: Alignment.center,
             child: const Home(),
           ),
         ));
     }
     return Container(
-      color: Styles.lightBg,
+      color: Styles.white,
       child: Navigator(
         key: navigatorKey,
         // this is where we configure the page(s) to display
