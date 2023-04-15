@@ -56,14 +56,14 @@ class LabeledTextField extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         style: Styles.uiMedium,
-        decoration: Styles.getChatDecoration('Write your dream...'),
+        decoration: Styles.getChatDecoration(hint ?? ''),
         textCapitalization: textCapitalization ?? TextCapitalization.sentences,
         keyboardType: keyboardType,
         enableSuggestions: enableSuggestions ?? false,
         autocorrect: autocorrect ?? false,
         textInputAction: textInputAction,
         onChanged: (value) {
-          if (onChanged != null) {
+          if ( onChanged != null) {
             onChanged!(value);
           }
         },

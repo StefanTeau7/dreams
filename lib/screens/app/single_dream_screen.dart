@@ -64,7 +64,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   Widget build(BuildContext context) {
     return Consumer2<ChatService, DreamService>(
       builder: (context, chatService, dreamService, child) {
-        List<Chat> chatList = chatService.getChatListById(widget.dreamId) ?? [];
+        List<Chat> chatList = chatService.getChatListById(_currentDreamId) ?? [];
         return Material(
           child: MaterialApp(
             home: Scaffold(
@@ -98,26 +98,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                             onChanged: (value) => _onTitleChanged(value),
                             hintText: "Dream Title",
                           )),
-                      // textfield
-                      SizedBox(
-                          width: 400,
-                          child: LabeledTextField(
-                            focusNode: _focusNode,
-                            controller: _textEditingController,
-                            onChanged: (value) => _onTextChanged(value),
-                            label: "",
-                          )),
-                      // button
-                      SimpleButton(
-                        width: 200,
-                        label: "Analyze",
-                        buttonVariant: ButtonVariant.PRIMARY,
-                        onPressed: () {
-                          if (chatList.isNotEmpty) {
-                            analyzeDream(chatList);
-                          }
-                        },
-                      ),
                       // result
                       chatList.isNotEmpty
                           ? Flexible(
@@ -150,6 +130,25 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                     );
                                   }))
                           : Container(),
+                      SizedBox(
+                          width: 400,
+                          child: LabeledTextField(
+                            focusNode: _focusNode,
+                            controller: _textEditingController,
+                            onChanged: (value) => _onTextChanged(value),
+                            label: '',
+                            hint: "Write your dream",
+                          )),
+                      SimpleButton(
+                        width: 200,
+                        label: "Analyze",
+                        buttonVariant: ButtonVariant.PRIMARY,
+                        onPressed: () {
+                          if (chatList.isNotEmpty) {
+                            analyzeDream(chatList);
+                          }
+                        },
+                      ),
                       // SimpleButton(
                       //   label: "Logout",
                       //   onPressed: () {
@@ -189,7 +188,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   }
 
   _onTextChanged(String value) async {
-    // need chatId
     if (_chatDebounce?.isActive ?? false) _chatDebounce!.cancel();
     _chatDebounce = Timer(const Duration(milliseconds: 500), () async {
       String? dreamId = _currentDreamId;
@@ -226,7 +224,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       );
     }
     setState(() {
-      _titleEditingController.clear();
+      _currentChatId = null;
       _textEditingController.clear();
       _focusNode.unfocus();
       _titleFocusNode.unfocus();

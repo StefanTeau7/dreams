@@ -56,7 +56,6 @@ class ApiService {
         "messages": messages,
         "max_tokens": 100,
       };
-
       String body = jsonEncode(chatJson);
       String baseUrl = dotenv.env['BASE_URL']!;
       String apiKey = dotenv.env['API_KEY']!;
@@ -71,7 +70,8 @@ class ApiService {
       if (jsonResponse['error'] != null) {
         throw HttpException(jsonResponse['error']["message"]);
       }
-      return jsonResponse["choices"]["message"]["content"];
+      String answer = jsonResponse["choices"][0]["message"]["content"];
+      return answer;
     } catch (error) {
       log("error $error");
       rethrow;
