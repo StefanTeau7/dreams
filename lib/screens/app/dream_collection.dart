@@ -1,10 +1,10 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
+import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
-import 'package:dream_catcher/widgets/simple_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,8 @@ class DreamCollection extends StatefulWidget {
 class _DreamCollectionState extends State<DreamCollection> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<DreamService>(
-      builder: (context, dreamService, child) {
+    return Consumer2<DreamService, ChatService>(
+      builder: (context, dreamService, chatService, child) {
         List<Dream>? myDreams = dreamService.getAllMyDreams();
         return Container(
           width: double.infinity,
@@ -44,18 +44,18 @@ class _DreamCollectionState extends State<DreamCollection> {
                     height: 20,
                   ),
                   Expanded(
-                    child: _buildDreamGrid(myDreams),
+                    child: _buildDreamGrid(myDreams, chatService),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: SimpleButton(
-                      height: 50,
-                      label: "Logout",
-                      onPressed: () {
-                        Amplify.Auth.signOut();
-                      },
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(20),
+                  //   child: SimpleButton(
+                  //     height: 50,
+                  //     label: "Logout",
+                  //     onPressed: () {
+                  //       Amplify.Auth.signOut();
+                  //     },
+                  //   ),
+                  // ),
                   _getFloatingButton(),
                 ],
               ),
@@ -67,19 +67,22 @@ class _DreamCollectionState extends State<DreamCollection> {
   }
 
   _getFloatingButton() {
-    return Center(
-      child: FloatingActionButton(
-        backgroundColor: Styles.mistyBlue,
-        child: const Icon(
-          Icons.add,
-          color: Styles.deepOceanBlue,
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: Center(
+        child: FloatingActionButton(
+          backgroundColor: Styles.mistyBlue,
+          child: const Icon(
+            Icons.add,
+            color: Styles.deepOceanBlue,
+          ),
+          onPressed: () => _pushNewDreamScreen(),
         ),
-        onPressed: () => _pushNewDreamScreen(),
       ),
     );
   }
 
-  _buildDreamGrid(List<Dream>? myDreams) {
+  _buildDreamGrid(List<Dream>? myDreams, ChatService chatService) {
     if (myDreams == null || myDreams.isEmpty) {
       return Center(
         child: Text(
@@ -93,6 +96,11 @@ class _DreamCollectionState extends State<DreamCollection> {
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemBuilder: (context, i) {
+        String firstChat = '';
+        List<Chat>? chats = chatService.getChatListById(myDreams[i].id);
+        if (chats != null && chats.isNotEmpty && chats.first.text != null) {
+          firstChat = chats.first.text!;
+        }
         return DreamCard(
           onTap: () {
             Navigator.push(
@@ -118,7 +126,7 @@ class _DreamCollectionState extends State<DreamCollection> {
               ),
               Expanded(
                 child: Text(
-                  myDreams[i].conversation?.first.text ?? '',
+                  firstChat,
                   style: Styles.uiMedium,
                   overflow: TextOverflow.fade,
                 ),

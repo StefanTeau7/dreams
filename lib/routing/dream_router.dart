@@ -1,5 +1,3 @@
-
-
 class DreameRoute {
   static const String ALL = 'all';
 
@@ -11,16 +9,6 @@ class DreameRoute {
   dynamic model;
 
   // constructors
-  DreameRoute.loading() // all null
-      : primaryScreen = null,
-        primaryId = null,
-        secondaryScreen = null,
-        secondaryId = null;
-  DreameRoute.noConnection()
-      : primaryScreen = PathElement.NO_CONNECTION,
-        primaryId = null,
-        secondaryScreen = null,
-        secondaryId = null;
   DreameRoute.signin()
       : primaryScreen = PathElement.SIGNIN,
         primaryId = null,

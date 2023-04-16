@@ -16,6 +16,7 @@ class Styles {
   static const _copyFont = "Haffer";
   static const copyFontFamily = _copyFont;
 
+  static const sidePadding = 20.0;
   static const _xxsSize = 10.0;
   static const _uiExtraSmallFontSize = 13.0;
   static const _uiSmallFontSize = 14.0;

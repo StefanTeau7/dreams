@@ -44,6 +44,7 @@ class DreamService extends ChangeNotifier {
         _dreamsById[dream.id] = dream;
       }
       notifyListeners();
+      return dreams;
     } on ApiException catch (e) {
       print('Query failed: $e');
     }

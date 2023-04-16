@@ -27,7 +27,7 @@ class SelfSavingTextField extends StatelessWidget {
       minLines: minLines,
       maxLines: minLines,
       focusNode: focusNode,
-      style: Styles.uiBoldExtraLarge,
+      style: Styles.uiBoldExtraLarge.copyWith(color: Styles.white),
       decoration: Styles.getTitleDecoration(hintText),
       controller: controller,
       onChanged: (value) => onChanged(value),

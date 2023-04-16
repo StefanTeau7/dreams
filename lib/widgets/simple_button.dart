@@ -186,6 +186,8 @@ class ButtonVariant {
         return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.OUTLINED_DISABLED:
         return {'buttonColor': Colors.transparent, 'labelColor': Styles.white, 'borderColor': Styles.white};
+      case ButtonVariant.PRIMARY_DISABLED:
+        return {'buttonColor': Styles.twilightGreen, 'labelColor': Styles.twilightGreen, 'borderColor': Styles.twilightGreen};
       case ButtonVariant.PRIMARY:
       default:
         return {'buttonColor': Styles.deepOceanBlue, 'labelColor': Styles.white, 'borderColor': Styles.deepOceanBlue};
