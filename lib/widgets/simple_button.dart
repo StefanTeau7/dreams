@@ -177,7 +177,7 @@ class ButtonVariant {
       case ButtonVariant.SECONDARY:
         return {'buttonColor': Styles.deepOceanBlue, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.TERTIARY:
-        return {'buttonColor': Styles.white, 'labelColor': Styles.white, 'borderColor': Styles.white};
+        return {'buttonColor': Styles.white, 'labelColor': Styles.deepOceanBlue, 'borderColor': Styles.deepOceanBlue};
       case ButtonVariant.OUTLINED:
         return {'buttonColor': Colors.transparent, 'labelColor': Styles.white, 'borderColor': Styles.white};
       case ButtonVariant.SECONDARY_DISABLED:

@@ -365,6 +365,37 @@ class Styles {
     );
   }
 
+  static InputDecoration getTitleDecoration(
+    String label, {
+    Color? color = Styles.white,
+    TextStyle? hintStyle,
+  }) {
+    return InputDecoration(
+      hintText: label,
+      fillColor: color,
+      filled: false,
+      isCollapsed: true,
+      hintStyle: hintStyle ?? Styles.uiLarge.copyWith(color: Styles.white),
+      border: const OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          )),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.all(
+          Radius.circular(Styles.pillRoundCorner),
+        ),
+      ),
+    );
+  }
+
   static const roundedBottomBorderRadius =
       BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8));
 

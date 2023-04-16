@@ -30,23 +30,25 @@ class _DreamCollectionState extends State<DreamCollection> {
             end: Alignment.bottomLeft,
             colors: [Styles.deepOceanBlue, Styles.black],
           )),
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "My Dreams",
-                  style: Styles.headlineLarge.copyWith(color: Styles.white),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: _buildDreamGrid(myDreams),
-                ),
-                _getFloatingButton(),
-              ],
+          child: SafeArea(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "My Dreams",
+                    style: Styles.headlineLarge.copyWith(color: Styles.white),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: _buildDreamGrid(myDreams),
+                  ),
+                  _getFloatingButton(),
+                ],
+              ),
             ),
           ),
         );

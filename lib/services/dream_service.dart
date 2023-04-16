@@ -117,6 +117,37 @@ class DreamService extends ChangeNotifier {
     }
   }
 
+  Future<bool> deleteDream(String dreamId) async {
+    try {
+      String? userId = await _userService.retrieveCurrentUserId();
+      if (userId == null) {
+        safePrint('User ID is null');
+        return false;
+      }
+      Dream? dream = _dreamsById[dreamId];
+      if (dream == null) {
+        safePrint('dream with dreamId $dreamId not found');
+        return false;
+      }
+      final request = ModelMutations.update(dream);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      final deletedDream = response.data;
+      if (deletedDream == null) {
+        safePrint('errors: ${response.errors}');
+        return false;
+      }
+      safePrint('Mutation result: ${deletedDream.title}');
+      _dreamsById.remove(deletedDream.id);
+      notifyListeners();
+      safePrint('Response: $response');
+      return true;
+    } on ApiException catch (e) {
+      safePrint('Mutation failed: $e');
+      return false;
+    }
+  }
+
   // for if we get to a bunch of dreams
   static const limit = 100;
   Future<List<Dream?>> queryPaginatedListItems() async {

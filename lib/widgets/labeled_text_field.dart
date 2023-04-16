@@ -49,10 +49,10 @@ class LabeledTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-      Text(label, style: labelStyle ?? Styles.uiLightMedium),
+    return Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.center, children: [
+      Center(child: Text(label, style: labelStyle ?? Styles.uiLightMedium)),
       const SizedBox(height: 5),
-      Expanded(
+      Flexible(
         child: TextField(
           focusNode: focusNode,
           controller: controller,
