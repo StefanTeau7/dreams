@@ -47,23 +47,6 @@ class DreamService extends ChangeNotifier {
     return <Dream?>[];
   }
 
-  Future<String?> createOrUpdateDream(
-    String? dreamId,
-    String title,
-  ) async {
-    String? dreamId;
-    if (dreamId == null) {
-      dreamId = await createDream(title);
-      return dreamId;
-    } else {
-      bool result = await updateDream(dreamId, title);
-      if (result) {
-        return dreamId;
-      }
-      return null;
-    }
-  }
-
   Future<String?> createDream(String title) async {
     try {
       String? userId = await _userService.retrieveCurrentUserId();

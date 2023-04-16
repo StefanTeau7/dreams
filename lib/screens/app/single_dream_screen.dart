@@ -111,7 +111,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                               child: SelfSavingTextField(
                                 _titleEditingController,
                                 focusNode: _titleFocusNode,
-                                onChanged: (value) => {},
+                                onChanged: (value) => _onTitleChanged(_titleEditingController.text),
                                 hintText: "Dream Title",
                               )),
                           // result
@@ -187,18 +187,6 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   }
 
   Future<void> _saveChat(String value, ChatService chatService) async {
-    if (_currentDreamId == null) {
-      _currentDreamId = await _dreamService.createOrUpdateDream(
-        _currentDreamId,
-        _titleEditingController.text,
-      );
-    } else {
-      await _dreamService.updateDream(
-        _currentDreamId!,
-        _titleEditingController.text,
-      );
-    }
-
     String text = _textEditingController.text;
 
     if (_currentChatId != null) {
@@ -225,6 +213,41 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
     }
   }
 
+  _onTitleChanged(String value) async {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () async {
+      if (_currentDreamId != null) {
+        await _dreamService.updateDream(
+          _currentDreamId!,
+          _titleEditingController.text,
+        );
+      } else {
+        String? dreamId = await _dreamService.createDream(_titleEditingController.text);
+        setState(() {
+          _currentDreamId = dreamId;
+        });
+      }
+    });
+  }
+
+  _deleteDream(DreamService dreamService, String? dreamId) async {
+    await Utils.showConfirmCancelDialog(
+      context: context,
+      title: 'Delete this dream?',
+      customConfirmLabel: 'Delete',
+      customCancelLabel: 'Cancel',
+      confirmFunction: () async {
+        final navigator = Navigator.of(context);
+        await dreamService.deleteDream(dreamId!);
+        navigator.pop();
+        navigator.pop();
+      },
+      customCancelFunction: () {
+        Navigator.of(context).pop();
+      },
+    );
+  }
+
   _clearStuff() {
     setState(() {
       _currentChatId = null;
@@ -233,22 +256,5 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
       _titleFocusNode.unfocus();
       _titleFocusNode.unfocus();
     });
-  }
-
-  _deleteDream(DreamService dreamService, String? dreamId) async {
-    await Utils.showConfirmCancelDialog(
-        context: context,
-        title: 'Delete this dream?',
-        customConfirmLabel: 'Delete',
-        customCancelLabel: 'Cancel',
-        confirmFunction: () async {
-          final navigator = Navigator.of(context);
-          await dreamService.deleteDream(dreamId!);
-          navigator.pop();
-          navigator.pop();
-        },
-        customCancelFunction: () {
-          Navigator.of(context).pop();
-        });
   }
 }
