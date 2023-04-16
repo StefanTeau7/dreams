@@ -46,6 +46,16 @@ class _DreamCollectionState extends State<DreamCollection> {
                   Expanded(
                     child: _buildDreamGrid(myDreams),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: SimpleButton(
+                      height: 50,
+                      label: "Logout",
+                      onPressed: () {
+                        Amplify.Auth.signOut();
+                      },
+                    ),
+                  ),
                   _getFloatingButton(),
                 ],
               ),
@@ -79,19 +89,10 @@ class _DreamCollectionState extends State<DreamCollection> {
       );
     }
     return GridView.builder(
-      itemCount: myDreams.length + 1,
+      itemCount: myDreams.length,
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemBuilder: (context, i) {
-        if (i == myDreams.length) {
-          return SimpleButton(
-            height: 20,
-            label: "Logout",
-            onPressed: () {
-              Amplify.Auth.signOut();
-            },
-          );
-        }
         return DreamCard(
           onTap: () {
             Navigator.push(

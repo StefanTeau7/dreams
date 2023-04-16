@@ -15,7 +15,15 @@ class DreamService extends ChangeNotifier {
   }
 
   List<Dream>? getAllMyDreams() {
-    return _dreamsById.values.toList().reversed.toList();
+    List<Dream> dreams = _dreamsById.values.toList();
+    dreams.sort((a, b) {
+      if (a.createdAt != null && b.createdAt != null) {
+        return b.createdAt!.compareTo(a.createdAt!);
+      } else {
+        return 1;
+      }
+    });
+    return dreams;
   }
 
   Future<List<Dream?>> fetchUserDreams() async {

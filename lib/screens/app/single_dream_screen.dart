@@ -187,30 +187,30 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   }
 
   Future<void> _saveChat(String value, ChatService chatService) async {
-    String? dreamId = await _dreamService.createOrUpdateDream(
-      _currentDreamId,
-      _titleEditingController.text,
-    );
-
     if (_currentDreamId == null) {
-      dreamId = await _dreamService.createOrUpdateDream(
+      _currentDreamId = await _dreamService.createOrUpdateDream(
         _currentDreamId,
+        _titleEditingController.text,
+      );
+    } else {
+      await _dreamService.updateDream(
+        _currentDreamId!,
         _titleEditingController.text,
       );
     }
 
     String text = _textEditingController.text;
-    _clearStuff();
 
     if (_currentChatId != null) {
-      await _chatService.updateChat(_currentChatId!, dreamId!, text);
+      await _chatService.updateChat(_currentChatId!, _currentDreamId!, text);
     } else {
       _currentChatId = await _chatService.createChat(
-        dreamId!,
+        _currentDreamId!,
         text,
         ChatRoleType.USER,
       );
     }
+    _clearStuff();
     return;
   }
 
