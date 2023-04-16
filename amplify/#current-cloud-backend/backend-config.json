@@ -73,11 +73,5 @@
       "service": "Cognito"
     }
   },
-  "storage": {
-    "s3dreamcatcherstoragee009c136": {
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "S3"
-    }
-  }
+  "storage": {}
 }

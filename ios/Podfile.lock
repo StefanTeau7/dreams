@@ -19,11 +19,6 @@ PODS:
     - Flutter
     - SwiftFormat/CLI
     - SwiftLint (= 0.48.0)
-  - amplify_datastore (0.0.1):
-    - Amplify (= 1.28.3)
-    - amplify_core
-    - AmplifyPlugins/AWSDataStorePlugin (= 1.28.3)
-    - Flutter
   - amplify_flutter_ios (0.0.1):
     - Amplify (= 1.28.3)
     - amplify_core
@@ -43,10 +38,6 @@ PODS:
     - AWSCore (~> 2.28.0)
     - AWSMobileClient (~> 2.28.0)
     - AWSPluginsCore (= 1.28.3)
-  - AmplifyPlugins/AWSDataStorePlugin (1.28.3):
-    - AWSCore (~> 2.28.0)
-    - AWSPluginsCore (= 1.28.3)
-    - SQLite.swift (= 0.13.2)
   - AppSyncRealTimeClient (2.1.1):
     - Starscream (~> 4.0.4)
   - AWSAuthCore (2.28.5):
@@ -69,9 +60,6 @@ PODS:
   - ObjectMapper (4.2.0)
   - sms_autofill (0.0.1):
     - Flutter
-  - SQLite.swift (0.13.2):
-    - SQLite.swift/standard (= 0.13.2)
-  - SQLite.swift/standard (0.13.2)
   - Starscream (4.0.4)
   - SwiftFormat/CLI (0.51.2)
   - SwiftLint (0.48.0)
@@ -80,7 +68,6 @@ DEPENDENCIES:
   - amplify_api_ios (from `.symlinks/plugins/amplify_api_ios/ios`)
   - amplify_auth_cognito_ios (from `.symlinks/plugins/amplify_auth_cognito_ios/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
-  - amplify_datastore (from `.symlinks/plugins/amplify_datastore/ios`)
   - amplify_flutter_ios (from `.symlinks/plugins/amplify_flutter_ios/ios`)
   - Flutter (from `Flutter`)
   - sms_autofill (from `.symlinks/plugins/sms_autofill/ios`)
@@ -97,7 +84,6 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPluginsCore
     - ObjectMapper
-    - SQLite.swift
     - Starscream
     - SwiftFormat
     - SwiftLint
@@ -109,8 +95,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_auth_cognito_ios/ios"
   amplify_core:
     :path: ".symlinks/plugins/amplify_core/ios"
-  amplify_datastore:
-    :path: ".symlinks/plugins/amplify_datastore/ios"
   amplify_flutter_ios:
     :path: ".symlinks/plugins/amplify_flutter_ios/ios"
   Flutter:
@@ -123,7 +107,6 @@ SPEC CHECKSUMS:
   amplify_api_ios: bbeacce5a151958bfedbd2e95fe6ab12599fd25d
   amplify_auth_cognito_ios: e532d70387aa0fe6f456855afe78ea275d58fe4b
   amplify_core: 0876b2fbbcec7619f5b58b20c59ecc0118f65a47
-  amplify_datastore: 4aa847727e99901625642db923deb86ee4c33817
   amplify_flutter_ios: 8943b5e5fb995a7aa3eb5c5238a6822756703584
   AmplifyPlugins: 98bcd23f2c13179f75c733b887e80dd06243be5e
   AppSyncRealTimeClient: 937360221f2b664c4c33ae142a60643e64f480cd
@@ -136,7 +119,6 @@ SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   sms_autofill: c461043483362c3f1709ee76eaae6eb570b31686
-  SQLite.swift: 4fc2be46c36392e3b87afe6fe7f1801c1daa07ef
   Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   SwiftFormat: 8904869cd98b67b351c3ab5dea605d00db320e14
   SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447

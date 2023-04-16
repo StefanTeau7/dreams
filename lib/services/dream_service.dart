@@ -28,7 +28,10 @@ class DreamService extends ChangeNotifier {
 
   Future<List<Dream?>> fetchUserDreams() async {
     try {
-      final request = ModelQueries.list(Dream.classType);
+      final request = ModelQueries.list(
+        Dream.classType,
+        //    where: Dream.ARCHIVED.ne(true)
+      );
       final response = await Amplify.API.query(request: request).response;
 
       final dreams = response.data?.items;
@@ -115,12 +118,12 @@ class DreamService extends ChangeNotifier {
         safePrint('User ID is null');
         return false;
       }
-      Dream? dream = _dreamsById[dreamId];
-      if (dream == null) {
-        safePrint('dream with dreamId $dreamId not found');
-        return false;
-      }
-      final request = ModelMutations.update(dream);
+      Dream dream = Dream(
+        id: dreamId,
+        userID: userId,
+        //  archived: true,
+      );
+      final request = ModelMutations.delete(dream);
       final response = await Amplify.API.mutate(request: request).response;
 
       final deletedDream = response.data;

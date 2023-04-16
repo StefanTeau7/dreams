@@ -42,7 +42,6 @@ dependencies:
   flutter_dotenv: ^5.0.2
   provider: ^6.0.5
   get_it: ^7.2.0
-  amplify_datastore: ^0.6.12
   amplify_api: ^0.6.12
   amplify_flutter: ^0.6.12
   amplify_auth_cognito: ^0.6.12

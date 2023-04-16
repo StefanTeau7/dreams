@@ -1,6 +1,19 @@
 const amplifyconfig = ''' {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
+    "analytics": {
+        "plugins": {
+            "awsPinpointAnalyticsPlugin": {
+                "pinpointAnalytics": {
+                    "appId": "891bebd8446747b0acca80299c7b2dbd",
+                    "region": "us-west-2"
+                },
+                "pinpointTargeting": {
+                    "region": "us-west-2"
+                }
+            }
+        }
+    },
     "api": {
         "plugins": {
             "awsAPIPlugin": {
@@ -9,7 +22,7 @@ const amplifyconfig = ''' {
                     "endpoint": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
                     "region": "us-west-1",
                     "authorizationType": "API_KEY",
-                    "apiKey": "da2-6tm5eoihuncnnekdsgzvr5l2ri"
+                    "apiKey": "da2-fq3vjinppvdyzl7npjqfkhshrq"
                 }
             }
         }
@@ -38,7 +51,7 @@ const amplifyconfig = ''' {
                         "ApiUrl": "https://eddyjenwxfc7rjtqb22qbf3eaa.appsync-api.us-west-1.amazonaws.com/graphql",
                         "Region": "us-west-1",
                         "AuthMode": "API_KEY",
-                        "ApiKey": "da2-jtu6g2qcjzgglbhqedb3gtfkny",
+                        "ApiKey": "da2-fq3vjinppvdyzl7npjqfkhshrq",
                         "ClientDatabasePrefix": "dreamcatcher_API_KEY"
                     },
                     "dreamcatcher_AWS_IAM": {
@@ -94,35 +107,7 @@ const amplifyconfig = ''' {
                             "EMAIL"
                         ]
                     }
-                },
-                "S3TransferUtility": {
-                    "Default": {
-                        "Bucket": "dreamcatcher-storage-e009c136113350-dev",
-                        "Region": "us-west-1"
-                    }
                 }
-            }
-        }
-    },
-    "analytics": {
-        "plugins": {
-            "awsPinpointAnalyticsPlugin": {
-                "pinpointAnalytics": {
-                    "appId": "891bebd8446747b0acca80299c7b2dbd",
-                    "region": "us-west-2"
-                },
-                "pinpointTargeting": {
-                    "region": "us-west-2"
-                }
-            }
-        }
-    },
-    "storage": {
-        "plugins": {
-            "awsS3StoragePlugin": {
-                "bucket": "dreamcatcher-storage-e009c136113350-dev",
-                "region": "us-west-1",
-                "defaultAccessLevel": "guest"
             }
         }
     }
