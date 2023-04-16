@@ -31,6 +31,156 @@ class _MainAppState extends State<MainApp> {
       authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
         const padding = EdgeInsets.all(20);
         switch (state.currentStep) {
+          case AuthenticatorStep.confirmSignUp:
+            return Scaffold(
+              backgroundColor: Styles.deepOceanBlue,
+              body: Container(
+                padding: padding,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/icon.png"),
+                            ),
+                            color: Styles.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Plume",
+                        style: Styles.uiBoldExtraLarge,
+                      ),
+                      // prebuilt confirm sign up form from amplify_authenticator package
+                      ConfirmSignUpForm(),
+                    ],
+                  ),
+                ),
+              ),
+              // custom button to take the user to sign in
+              persistentFooterButtons: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?'),
+                    TextButton(
+                      onPressed: () => state.changeStep(
+                        AuthenticatorStep.signIn,
+                      ),
+                      child: const Text('Sign In'),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          case AuthenticatorStep.verifyUser:
+            return Scaffold(
+              backgroundColor: Styles.deepOceanBlue,
+              body: Container(
+                padding: padding,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/icon.png"),
+                            ),
+                            color: Styles.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Plume",
+                        style: Styles.uiBoldExtraLarge,
+                      ),
+                      // prebuilt verify user form from amplify_authenticator package
+                      VerifyUserForm(),
+                    ],
+                  ),
+                ),
+              ),
+              // custom button to take the user to sign in
+              persistentFooterButtons: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?'),
+                    TextButton(
+                      onPressed: () => state.changeStep(
+                        AuthenticatorStep.signIn,
+                      ),
+                      child: const Text('Sign In'),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          case AuthenticatorStep.resetPassword:
+            return Scaffold(
+              backgroundColor: Styles.deepOceanBlue,
+              body: Container(
+                padding: padding,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/icon.png"),
+                            ),
+                            color: Styles.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Plume",
+                        style: Styles.uiBoldExtraLarge,
+                      ),
+                      // prebuilt reset password form from amplify_authenticator package
+                      ResetPasswordForm(),
+                    ],
+                  ),
+                ),
+              ),
+              // custom button to take the user to sign in
+              persistentFooterButtons: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Already have an account?'),
+                    TextButton(
+                      onPressed: () => state.changeStep(
+                        AuthenticatorStep.signIn,
+                      ),
+                      child: const Text('Sign In'),
+                    ),
+                  ],
+                ),
+              ],
+            );
           case AuthenticatorStep.signIn:
             return Scaffold(
               backgroundColor: Styles.deepOceanBlue,
@@ -40,8 +190,26 @@ class _MainAppState extends State<MainApp> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // app logo
-                      const Center(child: FlutterLogo(size: 100)),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/icon.png"),
+                            ),
+                            color: Styles.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Plume",
+                        style: Styles.uiBoldExtraLarge,
+                      ),
                       // prebuilt sign in form from amplify_authenticator package
                       SignInForm(),
                     ],
@@ -72,8 +240,26 @@ class _MainAppState extends State<MainApp> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // app logo
-                      const Center(child: FlutterLogo(size: 100)),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage("assets/icon/icon.png"),
+                            ),
+                            color: Styles.white,
+                            borderRadius: BorderRadius.all(Radius.circular(20))),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Text(
+                        "Plume",
+                        style: Styles.uiBoldExtraLarge,
+                      ),
                       // prebuilt sign up form from amplify_authenticator package
                       SignUpForm(),
                     ],
