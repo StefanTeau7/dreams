@@ -6,6 +6,7 @@ import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DreamCollection extends StatefulWidget {
@@ -124,28 +125,40 @@ class _DreamCollectionState extends State<DreamCollection> {
           },
           height: 200,
           color: Styles.mistyBlue.withOpacity(0.3),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                myDreams[i].title ?? '',
-                style: Styles.uiBoldLarge,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: Text(
-                  firstChat,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  myDreams[i].title ?? '',
+                  style: Styles.uiBoldLarge,
+                ),
+                Text(
+                  "created: ${dateTimeToMediumString(myDreams[i].createdAt?.getDateTimeInUtc())}",
                   style: Styles.uiMedium,
                   overflow: TextOverflow.fade,
                 ),
-              )
-            ],
+                if (myDreams[i].createdAt != myDreams[i].updatedAt)
+                  Text(
+                    "updated: ${dateTimeToMediumString(myDreams[i].updatedAt?.getDateTimeInUtc())}",
+                    style: Styles.uiMedium,
+                    overflow: TextOverflow.fade,
+                  ),
+              ],
+            ),
           ),
         );
       },
     );
+  }
+
+  static String? dateTimeToMediumString(DateTime? d) {
+    if (d == null) return null;
+    DateTime localTime = d.toLocal();
+    String date = DateFormat('MMMM dd').format(localTime);
+    return date;
   }
 
   _pushNewDreamScreen({String? dreamId}) {

@@ -38,17 +38,11 @@ class Styles {
   static const pollPadding = EdgeInsets.all(10);
   static const itemPadding = EdgeInsets.symmetric(horizontal: 10, vertical: 5);
   static const columnSpacing = 10.0;
-  static const MIN_WIDELAYOUT_WIDTH = 1200.0;
-  static const COLUMN_WIDTH = 375.0;
-  static const slidableThreshold = 0.5; // at 50% slide, open the slidable
   static const waitTimeInMilliseconds = 300;
-  static const pillRoundCorner = 20.0;
-  static const MAX_SUBJECT_LENGTH = 50;
-  static const MAX_COMMENT_LENGTH = 140;
+  static const pillRoundCorner = 10.0;
+
   static const ctaCornerWithLabel = 12.0;
   static const ctaCornerWithoutLabel = 30.0;
-
-  static const MAX_SCREEN_WIDTH = 500.0;
 
   static const headlineExtraLarge = TextStyle(
     fontFamily: _headlineFont,
@@ -318,12 +312,12 @@ class Styles {
       border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
+            Radius.circular(pillRoundCorner),
           )),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+          Radius.circular(pillRoundCorner),
         ),
       ),
       focusedBorder: const OutlineInputBorder(
@@ -350,7 +344,7 @@ class Styles {
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Styles.white, width: 1.0),
         borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+          Radius.circular(pillRoundCorner),
         ),
       ),
       focusedBorder: const OutlineInputBorder(
@@ -377,7 +371,7 @@ class Styles {
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: Styles.white, width: 1.0),
         borderRadius: BorderRadius.all(
-          Radius.circular(20.0),
+          Radius.circular(pillRoundCorner),
         ),
       ),
       focusedBorder: const OutlineInputBorder(

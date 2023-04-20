@@ -18,7 +18,7 @@ class DreamService extends ChangeNotifier {
     List<Dream> dreams = _dreamsById.values.toList();
     dreams.sort((a, b) {
       if (a.createdAt != null && b.createdAt != null) {
-        return b.createdAt!.compareTo(a.createdAt!);
+        return b.updatedAt!.compareTo(a.updatedAt!);
       } else {
         return 1;
       }

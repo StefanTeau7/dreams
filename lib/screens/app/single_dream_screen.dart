@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:dream_catcher/di/dependency_injection.dart';
 import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/ChatRoleType.dart';
@@ -38,6 +39,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   final DreamService _dreamService = getIt<DreamService>();
   final ChatService _chatService = getIt<ChatService>();
   bool _isLoading = false;
+  bool _hasJustAnalyzed = false;
 
   @override
   void initState() {
@@ -134,23 +136,43 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                       itemCount: chatList.length,
                                       itemBuilder: (context, index) {
                                         bool isMe = chatList[index].role == ChatRoleType.USER;
-                                        return Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                _getRoleLabel(chatList[index].role) + chatList[index].text ?? '',
-                                                style: isMe
-                                                    ? Styles.uiSemiBoldMedium.copyWith(color: Styles.mistyBlue)
-                                                    : Styles.uiSemiBoldMedium,
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
+                                        bool isLastAssistantMessage = index > 0 &&
+                                            index == chatList.length - 1 &&
+                                            chatList[index - 1].role == ChatRoleType.USER &&
+                                            chatList[index].role == ChatRoleType.ASSISTANT;
+
+                                        if (chatList[index].role == ChatRoleType.ASSISTANT &&
+                                            _hasJustAnalyzed &&
+                                            isLastAssistantMessage) {
+                                          return AnimatedTextKit(
+                                            animatedTexts: [
+                                              TypewriterAnimatedText(
+                                                "Plume: ${chatList[index].text!}",
+                                                textStyle: Styles.uiSemiBoldMedium.copyWith(color: Styles.white),
+                                                speed: const Duration(milliseconds: 50),
                                               ),
                                             ],
-                                          ),
-                                        );
+                                            isRepeatingAnimation: false,
+                                          );
+                                        } else {
+                                          return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  _getRoleLabel(chatList[index].role) + chatList[index].text ?? '',
+                                                  style: isMe
+                                                      ? Styles.uiSemiBoldMedium.copyWith(color: Styles.mistyBlue)
+                                                      : Styles.uiSemiBoldMedium,
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }
                                       }),
                                 )
                               : Container(),
@@ -204,7 +226,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
 
   _getRoleLabel(ChatRoleType? type) {
     if (type == ChatRoleType.ASSISTANT) {
-      return "Wizard : ";
+      return "Plume : ";
     } else {
       return "Me : ";
     }
@@ -227,6 +249,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
   }
 
   Future<void> analyzeDream(List<Chat> chatList) async {
+    _hasJustAnalyzed = true;
     String? response = await ApiService.sendMessage(list: chatList);
     if (response != null && response.isNotEmpty) {
       _chatService.createChat(
