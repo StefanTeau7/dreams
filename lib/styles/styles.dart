@@ -345,20 +345,16 @@ class Styles {
       fillColor: color,
       filled: false,
       isCollapsed: true,
+      contentPadding: const EdgeInsets.all(10),
       hintStyle: hintStyle ?? Styles.uiMedium.copyWith(color: Styles.white),
-      border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          )),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Styles.white, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),
         ),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Styles.deepOceanBlue, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(Styles.pillRoundCorner),
         ),
@@ -376,20 +372,16 @@ class Styles {
       fillColor: color,
       filled: false,
       isCollapsed: true,
+      contentPadding: const EdgeInsets.all(10),
       hintStyle: hintStyle ?? Styles.uiLarge.copyWith(color: Styles.white),
-      border: const OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          )),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Styles.white, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(20.0),
         ),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide.none,
+        borderSide: BorderSide(color: Styles.deepOceanBlue, width: 1.0),
         borderRadius: BorderRadius.all(
           Radius.circular(Styles.pillRoundCorner),
         ),

@@ -21,55 +21,63 @@ class _DreamCollectionState extends State<DreamCollection> {
     return Consumer2<DreamService, ChatService>(
       builder: (context, dreamService, chatService, child) {
         List<Dream>? myDreams = dreamService.getAllMyDreams();
-        return Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
-            colors: [Styles.deepOceanBlue, Styles.black],
-          )),
-          child: SafeArea(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "My Dreams",
-                    style: Styles.headlineLarge.copyWith(color: Styles.white),
+        return Scaffold(
+          body: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Styles.deepOceanBlue, Styles.black],
+            )),
+            child: SafeArea(
+              child: Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [Styles.deepOceanBlue, Styles.black],
+                )),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: ListView(
+                    children: [
+                      Text(
+                        "My Dreams",
+                        style: Styles.headlineLarge.copyWith(color: Styles.white),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      _buildDreamGrid(myDreams, chatService),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(20),
+                      //   child: SimpleButton(
+                      //     height: 50,
+                      //     label: "Logout",
+                      //     onPressed: () {
+                      //       Amplify.Auth.signOut();
+                      //     },
+                      //   ),
+                      // ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: _buildDreamGrid(myDreams, chatService),
-                  ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(20),
-                  //   child: SimpleButton(
-                  //     height: 50,
-                  //     label: "Logout",
-                  //     onPressed: () {
-                  //       Amplify.Auth.signOut();
-                  //     },
-                  //   ),
-                  // ),
-                  _getFloatingButton(),
-                ],
+                ),
               ),
             ),
           ),
+          floatingActionButton: _getFloatingButton(),
         );
       },
     );
   }
 
   _getFloatingButton() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Center(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 60.0),
+      child: Align(
+        alignment: Alignment.bottomRight,
         child: FloatingActionButton(
           backgroundColor: Styles.mistyBlue,
           child: const Icon(
@@ -92,7 +100,9 @@ class _DreamCollectionState extends State<DreamCollection> {
       );
     }
     return GridView.builder(
+      shrinkWrap: true,
       itemCount: myDreams.length,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemBuilder: (context, i) {

@@ -120,55 +120,53 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                   hintText: "Dream Title",
                                 )),
                           ),
-                          Container(
-                            height: 1,
-                            color: Styles.white,
-                          ),
+                          // Container(
+                          //   height: 1,
+                          //   color: Styles.white,
+                          // ),
                           // result
                           chatList.isNotEmpty
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
-                                  child: Flexible(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          itemCount: chatList.length,
-                                          itemBuilder: (context, index) {
-                                            bool isMe = chatList[index].role == ChatRoleType.USER;
-                                            return Padding(
-                                              padding: const EdgeInsets.symmetric(vertical: 10.0),
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    _getRoleLabel(chatList[index].role) + chatList[index].text ?? '',
-                                                    style: isMe
-                                                        ? Styles.uiSemiBoldMedium.copyWith(color: Styles.mistyBlue)
-                                                        : Styles.uiSemiBoldMedium,
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                ],
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: chatList.length,
+                                      itemBuilder: (context, index) {
+                                        bool isMe = chatList[index].role == ChatRoleType.USER;
+                                        return Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _getRoleLabel(chatList[index].role) + chatList[index].text ?? '',
+                                                style: isMe
+                                                    ? Styles.uiSemiBoldMedium.copyWith(color: Styles.mistyBlue)
+                                                    : Styles.uiSemiBoldMedium,
                                               ),
-                                            );
-                                          })),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }),
                                 )
                               : Container(),
                           Container(
-                              padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
-                              width: 400,
-                              child: LabeledTextField(
-                                minLines: 1,
-                                focusNode: _focusNode,
-                                controller: _textEditingController,
-                                onChanged: (String s) {
-                                  setState(() {});
-                                },
-                                label: '',
-                                hint: chatList.isNotEmpty ? "Reply.." : "Write your dream",
-                              )),
-
+                            padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
+                            child: LabeledTextField(
+                              minLines: 1,
+                              focusNode: _focusNode,
+                              controller: _textEditingController,
+                              onChanged: (String s) {
+                                setState(() {});
+                              },
+                              label: '',
+                              hint: chatList.isNotEmpty ? "Reply.." : "Write your dream",
+                            ),
+                          ),
                           _isLoading
                               ? const Center(child: CircularProgressIndicator())
                               : _textEditingController.text.isEmpty
