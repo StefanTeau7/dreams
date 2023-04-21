@@ -70,6 +70,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
         List<Chat> chatList = chatService.getChatListById(_currentDreamId) ?? [];
         return Material(
           child: MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(
                 child: Container(
