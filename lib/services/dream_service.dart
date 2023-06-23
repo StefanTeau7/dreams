@@ -17,7 +17,7 @@ class DreamService extends ChangeNotifier {
   List<Dream>? getAllMyDreams() {
     List<Dream> dreams = _dreamsById.values.toList();
     dreams.sort((a, b) {
-      if (a.createdAt != null && b.createdAt != null) {
+      if (a.updatedAt != null && b.updatedAt != null) {
         return b.updatedAt!.compareTo(a.updatedAt!);
       } else {
         return 1;
@@ -39,6 +39,7 @@ class DreamService extends ChangeNotifier {
         print('errors: ${response.errors}');
         return <Dream?>[];
       }
+
       for (Dream? dream in dreams) {
         if (dream == null) continue;
         _dreamsById[dream.id] = dream;

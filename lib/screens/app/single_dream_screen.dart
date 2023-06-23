@@ -172,19 +172,20 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                       }),
                                 )
                               : Container(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
-                            child: LabeledTextField(
-                              minLines: 1,
-                              focusNode: _focusNode,
-                              controller: _textEditingController,
-                              onChanged: (String s) {
-                                setState(() {});
-                              },
-                              label: '',
-                              hint: chatList.isNotEmpty ? "Reply.." : "Write your dream",
+                          if (!_isLoading)
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
+                              child: LabeledTextField(
+                                minLines: 1,
+                                focusNode: _focusNode,
+                                controller: _textEditingController,
+                                onChanged: (String s) {
+                                  setState(() {});
+                                },
+                                label: '',
+                                hint: chatList.isNotEmpty ? "Reply.." : "Write your dream",
+                              ),
                             ),
-                          ),
                           _isLoading
                               ? const Center(child: CircularProgressIndicator())
                               : _textEditingController.text.isEmpty

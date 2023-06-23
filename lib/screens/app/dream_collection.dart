@@ -1,5 +1,4 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
 import 'package:dream_catcher/services/chat_service.dart';
@@ -110,11 +109,6 @@ class _DreamCollectionState extends State<DreamCollection> {
       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200, crossAxisSpacing: 20, mainAxisSpacing: 20),
       itemBuilder: (context, i) {
-        String firstChat = '';
-        List<Chat>? chats = chatService.getChatListById(myDreams[i].id);
-        if (chats != null && chats.isNotEmpty && chats.first.text != null) {
-          firstChat = chats.first.text!;
-        }
         return DreamCard(
           onTap: () {
             Navigator.push(
@@ -139,16 +133,10 @@ class _DreamCollectionState extends State<DreamCollection> {
                   style: Styles.uiBoldLarge,
                 ),
                 Text(
-                  "created: ${dateTimeToMediumString(myDreams[i].createdAt?.getDateTimeInUtc())}",
-                  style: Styles.uiMedium,
+                  "${dateTimeToMediumString(myDreams[i].updatedAt?.getDateTimeInUtc())}",
+                  style: Styles.uiSmall,
                   overflow: TextOverflow.fade,
                 ),
-                if (myDreams[i].createdAt != myDreams[i].updatedAt)
-                  Text(
-                    "updated: ${dateTimeToMediumString(myDreams[i].updatedAt?.getDateTimeInUtc())}",
-                    style: Styles.uiMedium,
-                    overflow: TextOverflow.fade,
-                  ),
               ],
             ),
           ),
