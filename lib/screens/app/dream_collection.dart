@@ -1,3 +1,4 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:dream_catcher/models/Chat.dart';
 import 'package:dream_catcher/models/Dream.dart';
 import 'package:dream_catcher/screens/app/single_dream_screen.dart';
@@ -5,6 +6,7 @@ import 'package:dream_catcher/services/chat_service.dart';
 import 'package:dream_catcher/services/dream_service.dart';
 import 'package:dream_catcher/styles/styles.dart';
 import 'package:dream_catcher/widgets/dream_card.dart';
+import 'package:dream_catcher/widgets/simple_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -54,16 +56,16 @@ class _DreamCollectionState extends State<DreamCollection> {
                       height: 20,
                     ),
                     _buildDreamGrid(myDreams, chatService),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(20),
-                    //   child: SimpleButton(
-                    //     height: 50,
-                    //     label: "Logout",
-                    //     onPressed: () {
-                    //       Amplify.Auth.signOut();
-                    //     },
-                    //   ),
-                    // ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: SimpleButton(
+                        height: 50,
+                        label: "Logout",
+                        onPressed: () {
+                          Amplify.Auth.signOut();
+                        },
+                      ),
+                    ),
                   ],
                 ),
               ),

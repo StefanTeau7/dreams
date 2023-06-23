@@ -119,15 +119,10 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
                                 child: SelfSavingTextField(
                                   _titleEditingController,
                                   focusNode: _titleFocusNode,
-                                  onChanged: (value) => _onTitleChanged(_titleEditingController.text),
+                                  onChanged: (value) => _onTitleChanged(),
                                   hintText: "Dream Title",
                                 )),
                           ),
-                          // Container(
-                          //   height: 1,
-                          //   color: Styles.white,
-                          // ),
-                          // result
                           chatList.isNotEmpty
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: Styles.sidePadding),
@@ -264,7 +259,7 @@ class _SingleDreamScreenState extends State<SingleDreamScreen> {
     });
   }
 
-  _onTitleChanged(String value) async {
+  _onTitleChanged() async {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () async {
       if (_currentDreamId != null) {

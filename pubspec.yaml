@@ -51,7 +51,7 @@ dependencies:
   change_notifier_builder: ^1.1.2
   flutter_launcher_icons: "^0.13.0"
   animated_text_kit: ^4.2.2
-  intl: ^0.17.0 # format DateTimes
+  intl: ^0.18.0 # format DateTimes
 
 dev_dependencies:
   flutter_test:

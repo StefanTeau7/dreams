@@ -30,7 +30,7 @@ class DreamService extends ChangeNotifier {
     try {
       final request = ModelQueries.list(
         Dream.classType,
-        //    where: Dream.ARCHIVED.ne(true)
+//          where: Dream.ARCHIVED.ne(true)
       );
       final response = await Amplify.API.query(request: request).response;
 
