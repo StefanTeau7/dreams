@@ -8,5 +8,6 @@
       "authdreamcatcher",
       "Outputs.UserPoolId"
     ]
-  }
+  },
+  "CreateAPIKey": 1
 }
